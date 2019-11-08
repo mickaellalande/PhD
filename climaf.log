@@ -1,0 +1,2 @@
+warning  : Binary cdftools not found. Some operators won't work
+error    : "operand '1994' is not a CliMAF object"
