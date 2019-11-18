@@ -220,3 +220,13 @@ def annual_cycle(ds, calendar='standard'):
     np.testing.assert_allclose(weights.groupby('time.month').sum().values, np.ones(12))
     return (ds * weights).groupby('time.month').sum(dim='time', skipna=False)
 
+
+
+# =============================================================================
+# Compute spatial average
+# =============================================================================
+def spatial_average(da):
+    weights = (da*0 + np.cos(np.deg2rad(da.lat))) / (da*0 + np.cos(np.deg2rad(da.lat))).sum()
+    np.testing.assert_allclose(weights.sum().values, np.ones(1))
+    return (da * weights).sum()
+
