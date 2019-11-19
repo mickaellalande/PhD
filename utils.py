@@ -182,6 +182,8 @@ def season_mean(da, season, calendar='standard'):
             # 
             # !cdo yearmean -selmon,10,11,12 -shifttime,-2mo in.nc out.nc
             # Same results with the calendar=360_day
+            #
+            # Try with cdo season selection?
 
             month_end -= 12
             season_sel = (month >= month_start) | (month <= month_end)
