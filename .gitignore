@@ -137,3 +137,10 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/linux,python,jupyternotebooks
+
+# CLIMAF
+climaf.log
+last.out
+
+*/climaf.log
+*/last.out
