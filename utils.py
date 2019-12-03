@@ -144,24 +144,11 @@ def clim(ds, calendar='standard'):
     
 
 # Yearly mean (on monthly data set)
-def year_mean(ds, calendar='standard'):
-    month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
-    normalize = month_length.astype(float).groupby('time.year').sum()
-    weights = month_length.groupby('time.year') / normalize
-    np.testing.assert_allclose(weights.groupby('time.year').sum().values, np.ones(normalize.year.size))
-    with xr.set_options(keep_attrs=True):
-        return (ds * weights).groupby('time.year').sum(dim='time', skipna=False)
-
-
-# Seasonal yearly mean (on monthly data set)
-def season_mean(da, season, calendar='standard'):
+def year_mean(da, calendar='standard', season='annual'):
     # season = 'DJF' can be string
     # season = 1 or int for a single month
 
-    month_length = xr.DataArray(
-        get_dpm(da.time.to_index(), calendar=calendar), coords=[da.time], name='month_length'
-    )
-
+    month_length = xr.DataArray(get_dpm(da.time.to_index(), calendar=calendar), coords=[da.time], name='month_length')
     # Deal with custom season (string or int for single month)
     month = da['time.month']
 
@@ -171,51 +158,60 @@ def season_mean(da, season, calendar='standard'):
             season_mean = da.sel(time=season_sel)
 
     elif isinstance(season, str) and len(season) > 1:
-        season_str = 'JFMAMJJASONDJFMAMJJASOND'
-
-        month_start = season_str.index(season) + 1
-        month_end = month_start + len(season) - 1
-
-        if month_end > 12:
-            # Remove one year ([month_end:-(12-month_start+1)]) to have continious months
-            # The month/year label is from the starting month
-
-            # Checked with cdo: !cdo yearmonmean -selmon,10,11,12 -shifttime,-2mo in.nc out.nc
-            # -> slight differences, is CDO do not take the right month weights when shifted?
-            # -> or do I use the wrong weights?
-            # https://code.mpimet.mpg.de/boards/1/topics/826
-            # 
-            # !cdo yearmean -selmon,10,11,12 -shifttime,-2mo in.nc out.nc
-            # Same results with the calendar=360_day
-            #
-            # Try with cdo season selection?
-
-            month_end -= 12
-            season_sel = (month >= month_start) | (month <= month_end)
-            seasonal_data = da.sel(time=season_sel)[month_end:-(12-month_start+1)]
-            seasonal_month_length = month_length.astype(float).sel(time=season_sel)[month_end:-(12-month_start+1)]
-            weights = xr.DataArray(
-                [value/seasonal_month_length.resample(time='AS-'+cld.month_abbr[month_start]).sum().values[i//len(season)] \
-                     for i, value in enumerate(seasonal_month_length.values)],
-                coords = [month_length.sel(time=season_sel)[month_end:-(12-month_start+1)].time],
-                name = 'weights'
-                                  )
-            sum_weights = weights.resample(time='AS-'+cld.month_abbr[month_start]).sum()
-            np.testing.assert_allclose(sum_weights.values, np.ones(sum_weights.size))
+        
+        if season == 'annual':
+            normalize = month_length.astype(float).groupby('time.year').sum()
+            weights = month_length.groupby('time.year') / normalize
+            np.testing.assert_allclose(weights.groupby('time.year').sum().values, np.ones(normalize.year.size))
             with xr.set_options(keep_attrs=True):
-                season_mean = (seasonal_data * weights).resample(time='AS-'+cld.month_abbr[month_start])\
-                                                       .sum('time', skipna=False)
-
-
+                season_mean = (da * weights).groupby('time.year').sum(dim='time', skipna=False)
+        
         else:
-            # Checked with CDO (!cdo yearmonmean -selmonth,'' in.nc out.nc)
-            season_sel = (month >= month_start) & (month <= month_end)
-            seasonal_data = da.sel(time=season_sel)
-            normalize = month_length.astype(float).sel(time=season_sel).groupby('time.year').sum()
-            weights = month_length.sel(time=season_sel).groupby('time.year') / normalize
-            np.testing.assert_allclose(weights.groupby('time.year').sum().values, np.ones(normalize.size))
-            with xr.set_options(keep_attrs=True):
-                season_mean = (seasonal_data * weights).groupby('time.year').sum('time', skipna=False)
+            season_str = 'JFMAMJJASONDJFMAMJJASOND'
+
+            month_start = season_str.index(season) + 1
+            month_end = month_start + len(season) - 1
+
+            if month_end > 12:
+                # Remove one year ([month_end:-(12-month_start+1)]) to have continious months
+                # The month/year label is from the starting month
+
+                # Checked with cdo: !cdo yearmonmean -selmon,10,11,12 -shifttime,-2mo in.nc out.nc
+                # -> slight differences, is CDO do not take the right month weights when shifted?
+                # -> or do I use the wrong weights?
+                # https://code.mpimet.mpg.de/boards/1/topics/826
+                # 
+                # !cdo yearmean -selmon,10,11,12 -shifttime,-2mo in.nc out.nc
+                # Same results with the calendar=360_day
+                #
+                # Try with cdo season selection?
+
+                month_end -= 12
+                season_sel = (month >= month_start) | (month <= month_end)
+                seasonal_data = da.sel(time=season_sel)[month_end:-(12-month_start+1)]
+                seasonal_month_length = month_length.astype(float).sel(time=season_sel)[month_end:-(12-month_start+1)]
+                weights = xr.DataArray(
+                   [value/seasonal_month_length.resample(time='AS-'+cld.month_abbr[month_start]).sum().values[i//len(season)] \
+                         for i, value in enumerate(seasonal_month_length.values)],
+                    coords = [month_length.sel(time=season_sel)[month_end:-(12-month_start+1)].time],
+                    name = 'weights'
+                                      )
+                sum_weights = weights.resample(time='AS-'+cld.month_abbr[month_start]).sum()
+                np.testing.assert_allclose(sum_weights.values, np.ones(sum_weights.size))
+                with xr.set_options(keep_attrs=True):
+                    season_mean = (seasonal_data * weights).resample(time='AS-'+cld.month_abbr[month_start])\
+                                                           .sum('time', skipna=False)
+
+
+            else:
+                # Checked with CDO (!cdo yearmonmean -selmonth,'' in.nc out.nc)
+                season_sel = (month >= month_start) & (month <= month_end)
+                seasonal_data = da.sel(time=season_sel)
+                normalize = month_length.astype(float).sel(time=season_sel).groupby('time.year').sum()
+                weights = month_length.sel(time=season_sel).groupby('time.year') / normalize
+                np.testing.assert_allclose(weights.groupby('time.year').sum().values, np.ones(normalize.size))
+                with xr.set_options(keep_attrs=True):
+                    season_mean = (seasonal_data * weights).groupby('time.year').sum('time', skipna=False)
 
 
     else:
@@ -237,8 +233,8 @@ def annual_cycle(ds, calendar='standard'):
 # Compute spatial average
 # =============================================================================
 def spatial_average(da):
-    weights = (da*0 + np.cos(np.deg2rad(da.lat))) / (da*0 + np.cos(np.deg2rad(da.lat))).sum()
-    np.testing.assert_allclose(weights.sum().values, np.ones(1))
+    weights = (da*0 + np.cos(np.deg2rad(da.lat))) / (da*0 + np.cos(np.deg2rad(da.lat))).sum(dim=('lat','lon'))
+    np.testing.assert_allclose(weights.sum(dim=('lat','lon')).values, np.ones(da.time.size))
     with xr.set_options(keep_attrs=True):
-        return (da * weights).sum()
+        return (da * weights).sum(dim=('lat','lon'))
 
