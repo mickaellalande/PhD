@@ -100,7 +100,7 @@ def season_clim(ds, calendar='standard'):
 
 
 # Custom seasonal climatology (on monthly data set, include just month)
-def custom_season_clim(ds, season, calendar='standard'):
+def custom_season_clim(ds, calendar='standard', season=1):
     month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
     
     # Deal with custom season (string or int for single month)
