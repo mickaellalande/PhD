@@ -11,6 +11,7 @@ import numpy as np
 import xarray as xr
 import pandas as pd
 import calendar as cld
+from cartopy.util import add_cyclic_point
 
 
 # =============================================================================
@@ -237,4 +238,37 @@ def spatial_average(da):
     np.testing.assert_allclose(weights.sum(dim=('lat','lon')).values, np.ones(da.time.size))
     with xr.set_options(keep_attrs=True):
         return (da * weights).sum(dim=('lat','lon'))
+    
+
+    
+# =============================================================================
+# Add cyclic point
+# =============================================================================
+# https://github.com/darothen/plot-all-in-ncfile/blob/master/plot_util.py
+def cyclic_dataarray(da, coord='lon'):
+    """ Add a cyclic coordinate point to a DataArray along a specified
+    named coordinate dimension.
+    """
+    assert isinstance(da, xr.DataArray)
+
+    lon_idx = da.dims.index(coord)
+    cyclic_data, cyclic_coord = add_cyclic_point(da.values,
+                                                 coord=da.coords[coord],
+                                                 axis=lon_idx)
+
+    # Copy and add the cyclic coordinate and data
+    new_coords = dict(da.coords)
+    new_coords[coord] = cyclic_coord
+    new_values = cyclic_data
+
+    new_da = xr.DataArray(new_values, dims=da.dims, coords=new_coords)
+
+    # Copy the attributes for the re-constructed data and coords
+    for att, val in da.attrs.items():
+        new_da.attrs[att] = val
+    for c in da.coords:
+        for att in da.coords[c].attrs:
+            new_da.coords[c].attrs[att] = da.coords[c].attrs[att]
+
+    return new_da
 
