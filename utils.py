@@ -235,11 +235,32 @@ def annual_cycle(ds, calendar='standard'):
 # =============================================================================
 # https://pangeo.io/use_cases/physical-oceanography/sea-surface-height.html
 def spatial_average(da):
+    
+    # Get the longitude and latitude names + other dimensions to test that the sum of weights is right
+    lat_str = ''
+    lon_str = ''
+    other_dims_str = []
+    for dim in march_snow.dims:
+        if dim in ['lat', 'latitude']: 
+            lat_str = dim
+        elif dim in ['lon', 'longitude']: 
+            lon_str = dim
+        else:
+            other_dims_str.append(dim)
+    
+    # Compute the weights
     coslat = np.cos(np.deg2rad(da.lat)).where(~da.isnull())
-    weights = coslat / coslat.sum(dim=('lat', 'lon'))
-    np.testing.assert_allclose(weights.sum(dim=('lat','lon')).values, np.ones(da.time.size))
+    weights = coslat / coslat.sum(dim=(lat_str, lon_str))
+    
+    # Test that the sum of weights equal 1
+    np.testing.assert_allclose(
+        weights.sum(dim=(lat_str,lon_str)).values, 
+        np.ones([da.coords[dim_str].size for dim_str in other_dims_str]),
+        rtol=1e-06
+    )
+    
     with xr.set_options(keep_attrs=True):
-        return (da * weights).sum(dim=('lat','lon'))
+        return (da * weights).sum(dim=(lat_str,lon_str))
     
 
     
