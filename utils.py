@@ -233,8 +233,10 @@ def annual_cycle(ds, calendar='standard'):
 # =============================================================================
 # Compute spatial average
 # =============================================================================
+# https://pangeo.io/use_cases/physical-oceanography/sea-surface-height.html
 def spatial_average(da):
-    weights = (da*0 + np.cos(np.deg2rad(da.lat))) / (da*0 + np.cos(np.deg2rad(da.lat))).sum(dim=('lat','lon'))
+    coslat = np.cos(np.deg2rad(da.lat)).where(~da.isnull())
+    weights = coslat / coslat.sum(dim=('lat', 'lon'))
     np.testing.assert_allclose(weights.sum(dim=('lat','lon')).values, np.ones(da.time.size))
     with xr.set_options(keep_attrs=True):
         return (da * weights).sum(dim=('lat','lon'))
