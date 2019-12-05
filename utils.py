@@ -240,7 +240,7 @@ def spatial_average(da):
     lat_str = ''
     lon_str = ''
     other_dims_str = []
-    for dim in march_snow.dims:
+    for dim in da.dims:
         if dim in ['lat', 'latitude']: 
             lat_str = dim
         elif dim in ['lon', 'longitude']: 
