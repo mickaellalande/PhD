@@ -304,7 +304,7 @@ def get_data_IPSL_CM6A_LR_historical(variable, period=None, lat=None, lon=None):
     list_da = []
     
     if variable in ['snc']: table = 'LImon'
-    if variable in ['pr']: table = 'Amon' 
+    if variable in ['pr', 'ua', 'va']: table = 'Amon' 
     
     for i in range(1,n_realization+1):
         
@@ -313,28 +313,25 @@ def get_data_IPSL_CM6A_LR_historical(variable, period=None, lat=None, lon=None):
         
         if period is not None and lat is not None and lon is not None:
             list_da.append(xr.open_dataset(path)[variable].sel(time=period, lat=lat, lon=lon))
-            
         elif period is not None and lat is not None and lon is None:
             list_da.append(xr.open_dataset(path)[variable].sel(time=period, lat=lat))
         elif period is None and lat is not None and lon is not None:
             list_da.append(xr.open_dataset(path)[variable].sel(lat=lat, lon=lon))
         elif period is not None and lat is None and lon is not None:
             list_da.append(xr.open_dataset(path)[variable].sel(time=period, lon=lon))
-            
         elif period is not None and lat is None and lon is None:
             list_da.append(xr.open_dataset(path)[variable].sel(time=period))
         elif period is None and lat is not None and lon is None:
             list_da.append(xr.open_dataset(path)[variable].sel(lat=lat))
         elif period is None and lat is None and lon is not None:
             list_da.append(xr.open_dataset(path)[variable].sel(lon=lon))
-        
         else:
-            list_da.append(xr.open_dataset(path)[variable]     
+            list_da.append(xr.open_dataset(path)[variable]) 
 
     
-    snc = xr.concat(
+    data = xr.concat(
         list_da, 
         pd.Index(['r'+str(i)+'i1p1f1' for i in range(1,n_realization+1)], name='realization')
     )
     
-    return snc
+    return data
