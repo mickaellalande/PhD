@@ -295,3 +295,46 @@ def cyclic_dataarray(da, coord='lon'):
 
     return new_da
 
+
+# =============================================================================
+# Get data
+# =============================================================================
+def get_data_IPSL_CM6A_LR_historical(variable, period=None, lat=None, lon=None):
+    n_realization = 32 # 32
+    list_da = []
+    
+    if variable in ['snc']: table = 'LImon'
+    if variable in ['pr']: table = 'Amon' 
+    
+    for i in range(1,n_realization+1):
+        
+        path = '/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/historical/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/'\
+               +variable+'_'+table+'_IPSL-CM6A-LR_historical_r'+str(i)+'i1p1f1_gr_185001-201412.nc'
+        
+        if period is not None and lat is not None and lon is not None:
+            list_da.append(xr.open_dataset(path)[variable].sel(time=period, lat=lat, lon=lon))
+            
+        elif period is not None and lat is not None and lon is None:
+            list_da.append(xr.open_dataset(path)[variable].sel(time=period, lat=lat))
+        elif period is None and lat is not None and lon is not None:
+            list_da.append(xr.open_dataset(path)[variable].sel(lat=lat, lon=lon))
+        elif period is not None and lat is None and lon is not None:
+            list_da.append(xr.open_dataset(path)[variable].sel(time=period, lon=lon))
+            
+        elif period is not None and lat is None and lon is None:
+            list_da.append(xr.open_dataset(path)[variable].sel(time=period))
+        elif period is None and lat is not None and lon is None:
+            list_da.append(xr.open_dataset(path)[variable].sel(lat=lat))
+        elif period is None and lat is None and lon is not None:
+            list_da.append(xr.open_dataset(path)[variable].sel(lon=lon))
+        
+        else:
+            list_da.append(xr.open_dataset(path)[variable]     
+
+    
+    snc = xr.concat(
+        list_da, 
+        pd.Index(['r'+str(i)+'i1p1f1' for i in range(1,n_realization+1)], name='realization')
+    )
+    
+    return snc
