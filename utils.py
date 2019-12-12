@@ -299,8 +299,7 @@ def cyclic_dataarray(da, coord='lon'):
 # =============================================================================
 # Get data
 # =============================================================================
-def get_data_IPSL_CM6A_LR_historical(variable, period=None, lat=None, lon=None):
-    n_realization = 32 # 32
+def get_data_IPSL_CM6A_LR_historical(variable, n_realization = 32, period=None, lat=None, lon=None, plev=None):
     list_da = []
     
     if variable in ['snc']: table = 'LImon'
@@ -311,24 +310,16 @@ def get_data_IPSL_CM6A_LR_historical(variable, period=None, lat=None, lon=None):
         path = '/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/historical/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/'\
                +variable+'_'+table+'_IPSL-CM6A-LR_historical_r'+str(i)+'i1p1f1_gr_185001-201412.nc'
         
-        if period is not None and lat is not None and lon is not None:
-            list_da.append(xr.open_dataset(path)[variable].sel(time=period, lat=lat, lon=lon))
-        elif period is not None and lat is not None and lon is None:
-            list_da.append(xr.open_dataset(path)[variable].sel(time=period, lat=lat))
-        elif period is None and lat is not None and lon is not None:
-            list_da.append(xr.open_dataset(path)[variable].sel(lat=lat, lon=lon))
-        elif period is not None and lat is None and lon is not None:
-            list_da.append(xr.open_dataset(path)[variable].sel(time=period, lon=lon))
-        elif period is not None and lat is None and lon is None:
-            list_da.append(xr.open_dataset(path)[variable].sel(time=period))
-        elif period is None and lat is not None and lon is None:
-            list_da.append(xr.open_dataset(path)[variable].sel(lat=lat))
-        elif period is None and lat is None and lon is not None:
-            list_da.append(xr.open_dataset(path)[variable].sel(lon=lon))
-        else:
-            list_da.append(xr.open_dataset(path)[variable]) 
+        temp = xr.open_dataset(path)[variable]
+        
+        if period is not None: temp = temp.sel(time=period)
+        if lat is not None: temp = temp.sel(lat=lat)
+        if lon is not None: temp = temp.sel(lon=lon)
+        if plev is not None: temp = temp.sel(plev=plev)
+            
+        list_da.append(temp)
 
-    
+
     data = xr.concat(
         list_da, 
         pd.Index(['r'+str(i)+'i1p1f1' for i in range(1,n_realization+1)], name='realization')
