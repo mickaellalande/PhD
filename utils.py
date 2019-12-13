@@ -299,7 +299,8 @@ def cyclic_dataarray(da, coord='lon'):
 # =============================================================================
 # Get data
 # =============================================================================
-def get_data_IPSL_CM6A_LR_historical(variable, n_realization = 32, period=None, lat=None, lon=None, plev=None):
+def get_data_IPSL_CM6A_LR_historical(variable, n_realization = 32, time=None, lat=None, lon=None, plev=None, 
+                                     chunks=None):
     list_da = []
     
     if variable in ['snc']: table = 'LImon'
@@ -310,9 +311,10 @@ def get_data_IPSL_CM6A_LR_historical(variable, n_realization = 32, period=None, 
         path = '/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/historical/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/'\
                +variable+'_'+table+'_IPSL-CM6A-LR_historical_r'+str(i)+'i1p1f1_gr_185001-201412.nc'
         
-        temp = xr.open_dataset(path)[variable]
         
-        if period is not None: temp = temp.sel(time=period)
+        temp = xr.open_dataset(path, chunks=chunks)[variable]
+        
+        if time is not None: temp = temp.sel(time=time)
         if lat is not None: temp = temp.sel(lat=lat)
         if lon is not None: temp = temp.sel(lon=lon)
         if plev is not None: temp = temp.sel(plev=plev)
