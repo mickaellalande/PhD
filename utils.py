@@ -6,6 +6,7 @@
 # Import modules
 # =============================================================================
 import psutil
+import os
 import sys
 import numpy as np
 import xarray as xr
@@ -299,17 +300,28 @@ def cyclic_dataarray(da, coord='lon'):
 # =============================================================================
 # Get data
 # =============================================================================
-def get_data_IPSL_CM6A_LR_historical(variable, n_realization = 32, time=None, lat=None, lon=None, plev=None, 
-                                     chunks=None):
+def get_data_IPSL_CM6A_LR_historical(
+    variable, 
+    experiment='historical', 
+    n_realization = 'all', 
+    time=None, lat=None, lon=None, plev=None, chunks=None
+):
     list_da = []
     
     if variable in ['snc']: table = 'LImon'
     if variable in ['pr', 'ua', 'va']: table = 'Amon' 
     
+    if n_realization == 'all':
+        # Check the number of realizations
+        realization_names = [name for name in os.listdir('/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/'+experiment+'/')]
+        # I don't take directly the realization_names because they are sorted 
+        # and even .sort() doesn't work because the numbers are not on 2 digits (like 01 instead of 1)
+        n_realization = len(realization_names)
+    
     for i in range(1,n_realization+1):
         
-        path = '/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/historical/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/'\
-               +variable+'_'+table+'_IPSL-CM6A-LR_historical_r'+str(i)+'i1p1f1_gr_185001-201412.nc'
+        path = '/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/'+experiment+'/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/'\
+               +variable+'_'+table+'_IPSL-CM6A-LR_'+experiment+'_r'+str(i)+'i1p1f1_gr_185001-201412.nc'
         
         
         temp = xr.open_dataset(path, chunks=chunks)[variable]
