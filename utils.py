@@ -300,31 +300,41 @@ def cyclic_dataarray(da, coord='lon'):
 # =============================================================================
 # Get data
 # =============================================================================
-def get_data_IPSL_CM6A_LR_historical(
+def get_data_IPSL_CM6A_LR(
     variable, 
     experiment='historical', 
     n_realization = 'all', 
     time=None, lat=None, lon=None, plev=None, chunks=None
 ):
+    
+    # For concatenating all members
     list_da = []
     
+    # Define the table depending the variable
     if variable in ['snc']: table = 'LImon'
     if variable in ['pr', 'ua', 'va']: table = 'Amon' 
+        
+    # Define the mip depending of the experiment
+    if experiment in ['historical', 'amip']: mip = 'CMIP'
+    if experiment in ['land-hist']: mip = 'LS3MIP'
     
+    # Check the number of realizations
     if n_realization == 'all':
-        # Check the number of realizations
-        realization_names = [name for name in os.listdir('/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/'+experiment+'/')]
+        realization_names = [name for name in os.listdir('/bdd/CMIP6/'+mip+'/IPSL/IPSL-CM6A-LR/'+experiment+'/')]
         # I don't take directly the realization_names because they are sorted 
         # and even .sort() doesn't work because the numbers are not on 2 digits (like 01 instead of 1)
         n_realization = len(realization_names)
     
     for i in range(1,n_realization+1):
         
-        path = '/bdd/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/'+experiment+'/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/'\
-               +variable+'_'+table+'_IPSL-CM6A-LR_'+experiment+'_r'+str(i)+'i1p1f1_gr_185001-201412.nc'
+#         path = '/bdd/CMIP6/'+mip+'/IPSL/IPSL-CM6A-LR/'+experiment+'/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/'\
+#                +variable+'_'+table+'_IPSL-CM6A-LR_'+experiment+'_r'+str(i)+'i1p1f1_gr_185001-201412.nc'
         
+        # use xr.open_mfdataset instead of xr.open_dataset to be able to put * file so I don't have to specify the time
+        # for now I saw only one file per folder on ciclad
+        path = '/bdd/CMIP6/'+mip+'/IPSL/IPSL-CM6A-LR/'+experiment+'/r'+str(i)+'i1p1f1/'+table+'/'+variable+'/gr/latest/*'
         
-        temp = xr.open_dataset(path, chunks=chunks)[variable]
+        temp = xr.open_mfdataset(path, chunks=chunks, combine='by_coords')[variable]
         
         if time is not None: temp = temp.sel(time=time)
         if lat is not None: temp = temp.sel(lat=lat)
