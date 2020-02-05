@@ -307,6 +307,9 @@ def get_data_IPSL_CM6A_LR(
     time=None, lat=None, lon=None, plev=None, chunks=None
 ):
     
+#     warning  : no file found for {'domain': 'global', 'experiment': 'historical', 'institute': '*', 'table': 'LImon', 'period': 1979-2008, 'simulation': '', 'project': 'CMIP6', 'version': 'latest', 'grid': 'g*', 'realization': '*', 'variable': 'snc', 'mip': '*', 'model': 'IPSL-CM6A-LR', 'root': '/bdd'}, at these data locations ['${root}/CMIP6/${mip}/${institute}/${model}/${experiment}/${realization}/${table}/${variable}/${grid}/${version}/${variable}_${table}_${model}_${experiment}_${realization}_${grid}_${PERIOD}.nc', '${root}/CMIP6/${mip}/${institute}/${model}/${experiment}/${realization}/${table}/${variable}/${grid}/${version}/${variable}_${table}_${model}_${experiment}_${realization}_${grid}.nc'] 
+# warning  : Please check these empty attributes ['simulation']
+    
     # For concatenating all members
     list_da = []
     
