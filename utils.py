@@ -324,7 +324,7 @@ def get_data_IPSL_CM6A_LR(
     # Check the number of realizations
     if n_realization == 'all':
         realization_names = [name for name in os.listdir('/bdd/CMIP6/'+mip+'/IPSL/IPSL-CM6A-LR/'+experiment+'/')]
-        # I don't take directly the realization_names because they are sorted 
+        # I don't take directly the realization_names because they are not sorted 
         # and even .sort() doesn't work because the numbers are not on 2 digits (like 01 instead of 1)
         n_realization = len(realization_names)
     
