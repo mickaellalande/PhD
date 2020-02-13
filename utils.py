@@ -39,6 +39,13 @@ def get_human_readable_size(num):
         rounded_val = round(float(num) / 2 ** exp_str[i][0], 2)
     return '%s %s' % (int(rounded_val), exp_str[i][1])
 
+def deg2km(nlon, nlat, lat):
+    # Gives the size of a grid cell in km at the corresponding latitude
+    R_earth = 6371
+    x = 2*np.pi*R_earth/nlon*np.cos(np.deg2rad(lat))
+    y = np.pi*R_earth/nlat
+    return {'x': x, 'y': y, 'units': 'km'}
+
 
 # =============================================================================
 # Compute monthly weighted data
