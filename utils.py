@@ -392,17 +392,17 @@ def plot_zones_IPSL_CM6A_LR(ax):
     dx=2.5
     dy=1.2676
     
-    ax.text(70-dx/3, 31.690142-dy/2+7.6056339-dy/3, 'HK')
+    ax.text(70-dx/3, 31.690142-dy/2+7.6056339-3*dy/4, 'HK')
     ax.add_patch(mpatches.Rectangle(
             xy=[70-dx/2, 31.690142-dy/2], width=10+dx, height=7.6056339+1*dy,
             transform=ccrs.PlateCarree(), fill=False
         ))
-    ax.text(77.5+dx-dx/3, 26.619719-dy/2+3.802816-dy/3, 'HM')
+    ax.text(77.5+dx-dx/3, 26.619719-dy/2+3.802816-3*dy/4, 'HM')
     ax.add_patch(mpatches.Rectangle(
             xy=[77.5-dx/2+dx, 26.619719-dy/2], width=15+2*dx, height=3.802816+dy,
             transform=ccrs.PlateCarree(), fill=False
         )) # CH
-    ax.text(82.5-dx/3, 31.690142-dy/2+7.6056339-dy-dy/3, 'TB')
+    ax.text(82.5-dx/3, 31.690142-dy/2+7.6056339-dy-3*dy/4, 'TB')
     ax.add_patch(mpatches.Rectangle(
             xy=[82.5-dx/2, 31.690142-dy/2], width=15+3*dx, height=7.6056339,
             transform=ccrs.PlateCarree(), fill=False
