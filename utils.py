@@ -194,6 +194,8 @@ def year_mean(da, calendar='standard', season='annual'):
                 # Same results with the calendar=360_day
                 #
                 # Try with cdo season selection?
+                
+                # https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
 
                 month_end -= 12
                 season_sel = (month >= month_start) | (month <= month_end)
@@ -210,6 +212,9 @@ def year_mean(da, calendar='standard', season='annual'):
                 with xr.set_options(keep_attrs=True):
                     season_mean = (seasonal_data * weights).resample(time='AS-'+cld.month_abbr[month_start])\
                                                            .sum('time', skipna=False)
+                # To keep same format as the version bellow (be aware that the year label will be from the first month)
+                season_mean = season_mean.assign_coords({"time": season_mean['time.year']})
+                season_mean = season_mean.rename({'time': 'year'})
 
 
             else:
