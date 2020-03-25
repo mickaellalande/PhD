@@ -182,7 +182,7 @@ def year_mean(da, calendar='standard', season='annual'):
             month_end = month_start + len(season) - 1
 
             if month_end > 12:
-                # Remove one year ([month_end:-(12-month_start+1)]) to have continious months
+                # Remove one year (.isel(time=slice(month_end,-(12-month_start+1)))) to have continious months
                 # The month/year label is from the starting month
 
                 # Checked with cdo: !cdo yearmonmean -selmon,10,11,12 -shifttime,-2mo in.nc out.nc
@@ -199,12 +199,12 @@ def year_mean(da, calendar='standard', season='annual'):
 
                 month_end -= 12
                 season_sel = (month >= month_start) | (month <= month_end)
-                seasonal_data = da.sel(time=season_sel)[month_end:-(12-month_start+1)]
-                seasonal_month_length = month_length.astype(float).sel(time=season_sel)[month_end:-(12-month_start+1)]
+                seasonal_data = da.sel(time=season_sel).isel(time=slice(month_end,-(12-month_start+1)))
+                seasonal_month_length = month_length.astype(float).sel(time=season_sel).isel(time=slice(month_end,-(12-month_start+1)))
                 weights = xr.DataArray(
                    [value/seasonal_month_length.resample(time='AS-'+cld.month_abbr[month_start]).sum().values[i//len(season)] \
                          for i, value in enumerate(seasonal_month_length.values)],
-                    coords = [month_length.sel(time=season_sel)[month_end:-(12-month_start+1)].time],
+                    coords = [month_length.sel(time=season_sel).isel(time=slice(month_end,-(12-month_start+1))).time],
                     name = 'weights'
                                       )
                 sum_weights = weights.resample(time='AS-'+cld.month_abbr[month_start]).sum()
