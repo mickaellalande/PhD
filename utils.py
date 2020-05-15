@@ -417,6 +417,121 @@ def plot_zones_IPSL_CM6A_LR(ax):
 
 
 
+# =============================================================================
+# Select model on CICLAD
+# =============================================================================
+def select_model(name):
+    if name in ['AWI-CM-1-1-MR']:
+        institude = 'AWI'
+        grid = 'gn'
+        
+    elif name in ['BCC-CSM2-MR', 'BCC-ESM1']:
+        institude = 'BCC'
+        grid = 'gn'
+        
+    elif name in ['CAMS-CSM1-0']:
+        institude = 'CAMS'
+        grid = 'gn'
+        
+    elif name in ['CESM2', 'CESM2-FV2', 'CESM2-WACCM', 'CESM2-WACCM-FV2']:
+        institude = 'NCAR'
+        grid = 'gn'
+        
+    elif name in ['CanESM5']:
+        institude = 'CCCma'
+        grid = 'gn'
+        
+    elif name in ['E3SM-1-0', 'E3SM-1-1']:
+        institude = 'E3SM-Project'
+        grid = 'gr'
+    
+    elif name in ['EC-Earth3-Veg']:
+        institude = 'EC-Earth-Consortium'
+        grid = 'gr'
+        
+    elif name in ['FGOALS-f3-L', 'FGOALS-g3']:
+        institude = 'CAS'
+        grid = 'gn'
+        
+    elif name in ['FIO-ESM-2-0']:
+        institude = 'FIO-QLNM'
+        grid = 'gn'
+        
+    elif name in ['GFDL-CM4', 'GFDL-ESM4']:
+        institude = 'NOAA-GFDL'
+        grid = 'gr1'
+        
+    elif name in ['GISS-E2-1-G', 'GISS-E2-1-G-CC', 'GISS-E2-1-H']:
+        institude = 'NASA-GISS'
+        grid = 'gn'
+        
+    elif name in ['INM-CM4-8', 'INM-CM5-0']:
+        institude = 'INM'
+        grid = 'gr1'
+        
+    elif name in ['IPSL-CM6A-LR']:
+        institude = 'IPSL'
+        grid = 'gr'
+        
+    elif name in ['MCM-UA-1-0']:
+        institude = 'UA'
+        grid = 'gn'
+        
+    elif name in ['MIROC6']:
+        institude = 'MIROC'
+        grid = 'gn'
+        
+    elif name in ['MPI-ESM-1-2-HAM']:
+        institude = 'HAMMOZ-Consortium'
+        grid = 'gn'
+        
+    elif name in ['MPI-ESM1-2-HR', 'MPI-ESM1-2-LR']:
+        institude = 'MPI-M'
+        grid = 'gn'
+        
+    elif name in ['MRI-ESM2-0']:
+        institude = 'MRI'
+        grid = 'gn'
+        
+    elif name in ['NESM3']:
+        institude = 'NUIST'
+        grid = 'gn'
+        
+    elif name in ['NorCPM1', 'NorESM2-LM', 'NorESM2-MM']:
+        institude = 'NCC'
+        grid = 'gn'
+        
+    elif name in ['SAM0-UNICON']:
+        institude = 'SNU'
+        grid = 'gn'
+        
+    elif name in ['TaiESM1']:
+        institude = 'AS-RCEC'
+        grid = 'gn'
+        
+    else:
+        raise NameError('The model '+name+' is not defined')
+        
+
+    return institude, grid
+
+
+
+
+# =============================================================================
+# Select variable on CICLAD
+# =============================================================================
+def get_table(var):
+    if var in ['tas', 'pr']:
+        table = 'Amon'
+    elif var in ['snc']:
+        table = 'LImon'
+    else:
+        raise NameError('The variable '+name+' is not defined')
+        
+    return table
+
+
 
 
 
