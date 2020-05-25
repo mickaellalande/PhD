@@ -420,7 +420,7 @@ def plot_zones_IPSL_CM6A_LR(ax):
 # =============================================================================
 # Select model on CICLAD
 # =============================================================================
-def select_model(name):
+def select_model(name, var):
     if name in ['AWI-CM-1-1-MR']:
         institude = 'AWI'
         grid = 'gn'
@@ -451,7 +451,8 @@ def select_model(name):
         
     elif name in ['FGOALS-f3-L', 'FGOALS-g3']:
         institude = 'CAS'
-        grid = 'gn'
+        grid = 'gr'
+        if var == 'snc': grid = 'gn'
         
     elif name in ['FIO-ESM-2-0']:
         institude = 'FIO-QLNM'
