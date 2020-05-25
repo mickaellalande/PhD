@@ -523,7 +523,7 @@ def select_model(name, var):
 # Select variable on CICLAD
 # =============================================================================
 def get_table(var):
-    if var in ['tas', 'pr']:
+    if var in ['tas', 'pr', 'ta']:
         table = 'Amon'
     elif var in ['snc']:
         table = 'LImon'
