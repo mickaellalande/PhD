@@ -532,28 +532,3 @@ def get_table(var):
         
     return table
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
