@@ -93,7 +93,7 @@ def get_dpm(time, calendar='standard'):
 
 
 # Seasonal climatology (on monthly data set)
-def season_clim(ds, calendar='standard'):
+def season_clim(ds, calendar='standard', skipna=False):
     # Make a DataArray with the number of days in each month, size = len(time)
     month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar),
                                 coords=[ds.time], name='month_length')
@@ -105,11 +105,11 @@ def season_clim(ds, calendar='standard'):
 
     # Calculate the weighted average
     with xr.set_options(keep_attrs=True):
-        return (ds * weights).groupby('time.season').sum(dim='time', skipna=False)
+        return (ds * weights).groupby('time.season').sum(dim='time', skipna=skipna)
 
 
 # Custom seasonal climatology (on monthly data set, include just month)
-def custom_season_clim(ds, calendar='standard', season=1):
+def custom_season_clim(ds, calendar='standard', season=1, skipna=False):
     month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
     
     # Deal with custom season (string or int for single month)
@@ -138,18 +138,18 @@ def custom_season_clim(ds, calendar='standard', season=1):
     
     with xr.set_options(keep_attrs=True):
         if isinstance(season, int):
-            return (seasonal_data * weights).sum(dim='time', skipna=False).assign_coords(month=season)
+            return (seasonal_data * weights).sum(dim='time', skipna=skipna).assign_coords(month=season)
         elif isinstance(season, str) and len(season) > 1:
-            return (seasonal_data * weights).sum(dim='time', skipna=False).assign_coords(season=season)
+            return (seasonal_data * weights).sum(dim='time', skipna=skipna).assign_coords(season=season)
     
 
 # Climatology (on monthly data set)
-def clim(ds, calendar='standard'):
+def clim(ds, calendar='standard', skipna=False):
     month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
     weights = month_length / month_length.sum()
     np.testing.assert_allclose(weights.sum().values, np.ones(1))
     with xr.set_options(keep_attrs=True):
-        return (ds * weights).sum(dim='time', skipna=False)
+        return (ds * weights).sum(dim='time', skipna=skipna)
     
 
 # Yearly mean (on monthly data set)
@@ -173,7 +173,7 @@ def year_mean(da, calendar='standard', season='annual'):
             weights = month_length.groupby('time.year') / normalize
             np.testing.assert_allclose(weights.groupby('time.year').sum().values, np.ones(normalize.year.size))
             with xr.set_options(keep_attrs=True):
-                season_mean = (da * weights).groupby('time.year').sum(dim='time', skipna=False)
+                season_mean = (da * weights).groupby('time.year').sum(dim='time', skipna=skipna)
         
         else:
             season_str = 'JFMAMJJASONDJFMAMJJASOND'
@@ -211,7 +211,7 @@ def year_mean(da, calendar='standard', season='annual'):
                 np.testing.assert_allclose(sum_weights.values, np.ones(sum_weights.size))
                 with xr.set_options(keep_attrs=True):
                     season_mean = (seasonal_data * weights).resample(time='AS-'+cld.month_abbr[month_start])\
-                                                           .sum('time', skipna=False)
+                                                           .sum('time', skipna=skipna)
                 # To keep same format as the version bellow (be aware that the year label will be from the first month)
                 season_mean = season_mean.assign_coords({"time": season_mean['time.year']})
                 season_mean = season_mean.rename({'time': 'year'})
@@ -225,7 +225,7 @@ def year_mean(da, calendar='standard', season='annual'):
                 weights = month_length.sel(time=season_sel).groupby('time.year') / normalize
                 np.testing.assert_allclose(weights.groupby('time.year').sum().values, np.ones(normalize.size))
                 with xr.set_options(keep_attrs=True):
-                    season_mean = (seasonal_data * weights).groupby('time.year').sum('time', skipna=False)
+                    season_mean = (seasonal_data * weights).groupby('time.year').sum('time', skipna=skipna)
 
 
     else:
@@ -234,12 +234,12 @@ def year_mean(da, calendar='standard', season='annual'):
     return season_mean
 
 # Annual cycle (on monthly data set)
-def annual_cycle(ds, calendar='standard'):
+def annual_cycle(ds, calendar='standard', skipna=False):
     month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
     weights = month_length.groupby('time.month') / month_length.astype(float).groupby('time.month').sum()
     np.testing.assert_allclose(weights.groupby('time.month').sum().values, np.ones(12))
     with xr.set_options(keep_attrs=True):
-        return (ds * weights).groupby('time.month').sum(dim='time', skipna=False)
+        return (ds * weights).groupby('time.month').sum(dim='time', skipna=skipna)
 
 
 
