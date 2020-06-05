@@ -12,6 +12,7 @@ import numpy as np
 import xarray as xr
 import pandas as pd
 import calendar as cld
+import proplot as plot
 from cartopy.util import add_cyclic_point
 
 
@@ -421,7 +422,15 @@ def plot_zones_IPSL_CM6A_LR(ax):
 # Select model on CICLAD
 # =============================================================================
 def select_model(name, var):
-    if name in ['AWI-CM-1-1-MR']:
+    if name in ['ACCESS-CM2']:
+        institude = 'CSIRO-ARCCSS'
+        grid = 'gn'
+    
+    elif name in ['ACCESS-ESM1-5']:
+        institude = 'CSIRO'
+        grid = 'gn'
+    
+    elif name in ['AWI-CM-1-1-MR']:
         institude = 'AWI'
         grid = 'gn'
         
@@ -441,18 +450,23 @@ def select_model(name, var):
         institude = 'CCCma'
         grid = 'gn'
         
-    elif name in ['E3SM-1-0', 'E3SM-1-1']:
+    elif name in ['CIESM']:
+        institude = 'THU'
+        grid = 'gr'
+        
+    elif name in ['E3SM-1-0', 'E3SM-1-1', 'E3SM-1-1-ECA']:
         institude = 'E3SM-Project'
         grid = 'gr'
     
-    elif name in ['EC-Earth3-Veg']:
+    elif name in ['EC-Earth3-Veg', 'EC-Earth3-Veg-LR']:
         institude = 'EC-Earth-Consortium'
         grid = 'gr'
         
-    elif name in ['FGOALS-f3-L', 'FGOALS-g3']:
+    elif name in ['CAS-ESM2-0', 'FGOALS-f3-L', 'FGOALS-g3']:
         institude = 'CAS'
         grid = 'gr'
-        if var == 'snc': grid = 'gn'
+        if var in ['snc', 'pr']: grid = 'gn'
+        if var == 'prsn' and name in ['CAS-ESM2-0', 'FGOALS-g3']: grid = 'gn'
         
     elif name in ['FIO-ESM-2-0']:
         institude = 'FIO-QLNM'
@@ -523,7 +537,7 @@ def select_model(name, var):
 # Select variable on CICLAD
 # =============================================================================
 def get_table(var):
-    if var in ['tas', 'pr', 'ta']:
+    if var in ['tas', 'pr', 'prsn', 'ta']:
         table = 'Amon'
     elif var in ['snc']:
         table = 'LImon'
@@ -531,4 +545,34 @@ def get_table(var):
         raise NameError('The variable '+name+' is not defined')
         
     return table
+
+def get_var_infos(var):
+    if var == 'snc':
+        label = 'Snow cover extent'
+        units = '%'
+        cmap ='viridis'
+        levels = plot.arange(0,100,10)
+        
+    elif var == 'tas':
+        label = 'Near-Surface Air Temperature'
+        units = '°C'
+        cmap = 'CoolWarm'
+        levels = plot.arange(-30,30,5)
+        
+    elif var == 'pr':
+        label = 'Total precipitation'
+        units = 'mm/day'
+        cmap ='DryWet'
+        levels = plot.arange(0,5,0.5)
+        
+    elif var == 'prsn':
+        label = 'Snowfall'
+        units = 'mm/day'
+        cmap ='DryWet'
+        levels = plot.arange(0,5,0.5)
+        
+    else:
+        raise NameError('The variable '+name+' is not defined')
+        
+    return label, units, cmap, levels
 
