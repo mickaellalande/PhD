@@ -559,7 +559,7 @@ def get_var_infos(var):
         cmap = 'CoolWarm'
         levels = plot.arange(-30,30,5)
         
-    elif var in ['pr', 'tp']:
+    elif var in ['pr', 'tp', 'precip']:
         label = 'Total precipitation'
         units = 'mm/day'
         cmap ='DryWet'
@@ -574,6 +574,12 @@ def get_var_infos(var):
     elif var == 'ua':
         label = 'Eastward Wind'
         units = 'm/s'
+        cmap='CoolWarm'
+        levels=plot.arange(-7,7,1)
+        
+    elif var == 'ta':
+        label = 'Air Temperature'
+        units = '°C'
         cmap='CoolWarm'
         levels=plot.arange(-7,7,1)
         
