@@ -547,19 +547,19 @@ def get_table(var):
     return table
 
 def get_var_infos(var):
-    if var == 'snc':
+    if var in ['snc', 'frac_snow']:
         label = 'Snow cover extent'
         units = '%'
         cmap ='viridis'
         levels = plot.arange(0,100,10)
         
-    elif var == 'tas':
+    elif var in ['tas', 't2m']:
         label = 'Near-Surface Air Temperature'
         units = '°C'
         cmap = 'CoolWarm'
         levels = plot.arange(-30,30,5)
         
-    elif var == 'pr':
+    elif var in ['pr', 'tp']:
         label = 'Total precipitation'
         units = 'mm/day'
         cmap ='DryWet'
@@ -570,6 +570,12 @@ def get_var_infos(var):
         units = 'mm/day'
         cmap ='DryWet'
         levels = plot.arange(0,5,0.5)
+        
+    elif var == 'ua':
+        label = 'Eastward Wind'
+        units = 'm/s'
+        cmap='CoolWarm'
+        levels=plot.arange(-7,7,1)
         
     else:
         raise NameError('The variable '+name+' is not defined')
