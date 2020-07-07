@@ -6,13 +6,9 @@
 # Import modules
 # =============================================================================
 import psutil
-import os
 import sys
 import numpy as np
 import xarray as xr
-import pandas as pd
-import calendar as cld
-import proplot as plot
 from cartopy.util import add_cyclic_point
 
 # Personnal functions
