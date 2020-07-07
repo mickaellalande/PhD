@@ -41,4 +41,12 @@ https://docs.google.com/document/d/1YtkR1Ivote_Fm22uSTgONOdKv0Wifp9k3xWpRJiscuM/
   'SAM0-UNICON',
   'TaiESM1',
   'UKESM1-0-LL'
-  ]
+]
+  
+## Conda environment
+
+Conda environment `work.txt` (https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+
+```bash
+conda create --name myenv --file work.txt
+```

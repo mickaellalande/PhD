@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import numpy as np
+import xarray as xr
+import calendar as cld
+
 #=============================================================================
 # Compute monthly weighted data
 # =============================================================================
@@ -46,64 +50,49 @@ def get_dpm(time, calendar='standard'):
     return month_length
 
 
-# Seasonal climatology (on monthly data set)
-def season_clim(ds, calendar='standard', skipna=False):
-    # Make a DataArray with the number of days in each month, size = len(time)
-    month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar),
-                                coords=[ds.time], name='month_length')
-    # Calculate the weights by grouping by 'time.season'
-    weights = month_length.groupby('time.season') / month_length.groupby('time.season').sum()
-
-    # Test that the sum of the weights for each season is 1.0
-    np.testing.assert_allclose(weights.groupby('time.season').sum().values, np.ones(4))
-
-    # Calculate the weighted average
-    with xr.set_options(keep_attrs=True):
-        return (ds * weights).groupby('time.season').sum(dim='time', skipna=skipna)
-
-
 # Custom seasonal climatology (on monthly data set, include just month)
-def custom_season_clim(ds, calendar='standard', season=1, skipna=False):
+def clim(ds, calendar='standard', season='annual', skipna=False):
+    
     month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
     
-    # Deal with custom season (string or int for single month)
-    month = ds['time.month']
+    if season == 'annual':
+        weights = month_length / month_length.sum()
+        np.testing.assert_allclose(weights.sum().values, np.ones(1))
+        with xr.set_options(keep_attrs=True):
+            return (ds * weights).sum(dim='time', skipna=skipna)
     
-    if isinstance(season, int):
-        season_sel = (month == season)
-    elif isinstance(season, str) and len(season) > 1:
-        season_str = 'JFMAMJJASONDJFMAMJJASOND'
-        
-        month_start = season_str.index(season) + 1
-        month_end = month_start + len(season) - 1
-
-        if month_end > 12:
-            month_end -= 12
-            season_sel = (month >= month_start) | (month <= month_end)
-        else:
-            season_sel = (month >= month_start) & (month <= month_end)
-        
     else:
-        raise ValueError('The season is not valid (string or int for single month)')
-        
-    seasonal_data = ds.sel(time=season_sel)
-    weights = month_length.sel(time=season_sel) / month_length.astype(float).sel(time=season_sel).sum()
-    np.testing.assert_allclose(weights.sum().values, np.ones(1))
-    
-    with xr.set_options(keep_attrs=True):
-        if isinstance(season, int):
-            return (seasonal_data * weights).sum(dim='time', skipna=skipna).assign_coords(month=season)
-        elif isinstance(season, str) and len(season) > 1:
-            return (seasonal_data * weights).sum(dim='time', skipna=skipna).assign_coords(season=season)
-    
+   
+        # Deal with custom season (string or int for single month)
+        month = ds['time.month']
 
-# Climatology (on monthly data set)
-def clim(ds, calendar='standard', skipna=False):
-    month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
-    weights = month_length / month_length.sum()
-    np.testing.assert_allclose(weights.sum().values, np.ones(1))
-    with xr.set_options(keep_attrs=True):
-        return (ds * weights).sum(dim='time', skipna=skipna)
+        if isinstance(season, int):
+            season_sel = (month == season)
+        elif isinstance(season, str) and len(season) > 1:
+            season_str = 'JFMAMJJASONDJFMAMJJASOND'
+
+            month_start = season_str.index(season) + 1
+            month_end = month_start + len(season) - 1
+
+            if month_end > 12:
+                month_end -= 12
+                season_sel = (month >= month_start) | (month <= month_end)
+            else:
+                season_sel = (month >= month_start) & (month <= month_end)
+
+        else:
+            raise ValueError('The season is not valid (string or int for single month)')
+
+        seasonal_data = ds.sel(time=season_sel)
+        weights = month_length.sel(time=season_sel) / month_length.astype(float).sel(time=season_sel).sum()
+        np.testing.assert_allclose(weights.sum().values, np.ones(1))
+
+        with xr.set_options(keep_attrs=True):
+            if isinstance(season, int):
+                return (seasonal_data * weights).sum(dim='time', skipna=skipna).assign_coords(month=season)
+            elif isinstance(season, str) and len(season) > 1:
+                return (seasonal_data * weights).sum(dim='time', skipna=skipna).assign_coords(season=season)
+
     
 
 # Yearly mean (on monthly data set)
