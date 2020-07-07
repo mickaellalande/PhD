@@ -16,10 +16,10 @@ import proplot as plot
 from cartopy.util import add_cyclic_point
 
 # Personnal functions
-import models # for loading models on CICLAD
-import variables # get var infos and cmap
-import monthly_computations # makes weighted montlhy computations
-import HMA # make zones
+from models import * # for loading models on CICLAD
+from variables import * # get var infos and cmap
+from clim import * # makes weighted montlhy computations
+from zones import * # make zones
 
 
 # =============================================================================
