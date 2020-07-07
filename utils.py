@@ -532,7 +532,10 @@ def select_model(name, var):
     elif name in ['MIROC-ES2L', 'MIROC6']:
         institude = 'MIROC'
         grid = 'gn'
-        if name == 'MIROC6': member = 'r1i1p1f1' else member = 'r1i1p1f2'
+        if name == 'MIROC6': 
+            member = 'r1i1p1f1' 
+        else:
+            member = 'r1i1p1f2'
         
     elif name in ['MPI-ESM-1-2-HAM']:
         institude = 'HAMMOZ-Consortium'
