@@ -59,7 +59,7 @@ def clim(ds, calendar='standard', season='annual', skipna=False):
         weights = month_length / month_length.sum()
         np.testing.assert_allclose(weights.sum().values, np.ones(1))
         with xr.set_options(keep_attrs=True):
-            return (ds * weights).sum(dim='time', skipna=skipna)
+            return (ds * weights).sum(dim='time', skipna=skipna).assign_coords(season=season)
     
     else:
    
