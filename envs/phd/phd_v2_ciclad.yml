@@ -108,8 +108,8 @@ dependencies:
   - locket=0.2.0=py_2
   - lz4-c=1.9.2=he1b5a44_1
   - markupsafe=1.1.1=py38h1e0a361_1
-  - matplotlib=3.3.0=0
-  - matplotlib-base=3.3.0=py38hb801037_0
+  - matplotlib=3.2.2=1
+  - matplotlib-base=3.2.2=py38h2af1d28_0
   - mistune=0.8.4=py38h1e0a361_1001
   - mpi=1.0=mpich
   - mpi4py=3.0.3=py38h4a80816_1

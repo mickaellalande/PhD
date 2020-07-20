@@ -180,7 +180,7 @@ https://conda.anaconda.org/conda-forge/noarch/jinja2-2.11.2-pyh9f0ad1d_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/jsonschema-3.2.0-py38h32f6830_1.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/jupyter_client-6.1.6-py_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/libgdal-3.1.1-h4ed0dcf_0.tar.bz2
-https://conda.anaconda.org/conda-forge/linux-64/matplotlib-base-3.3.0-py38hb801037_0.tar.bz2
+https://conda.anaconda.org/conda-forge/linux-64/matplotlib-base-3.2.2-py38h2af1d28_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/netcdf4-1.5.3-nompi_py38hfd55d45_105.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/pygments-2.6.1-py_0.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/pyopenssl-19.1.0-py_1.tar.bz2
@@ -190,7 +190,7 @@ https://conda.anaconda.org/conda-forge/noarch/xarray-0.16.0-py_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/bokeh-2.1.1-py38h32f6830_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/esmpy-8.0.1-mpi_mpich_py38h08b7006_100.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/gdal-3.1.1-py38h172510d_0.tar.bz2
-https://conda.anaconda.org/conda-forge/linux-64/matplotlib-3.3.0-0.tar.bz2
+https://conda.anaconda.org/conda-forge/linux-64/matplotlib-3.2.2-1.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.7-py_0.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/pip-20.1.1-py_1.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.5-py_1.tar.bz2

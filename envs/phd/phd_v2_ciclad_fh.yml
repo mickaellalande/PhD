@@ -13,5 +13,6 @@ dependencies:
   - jupyter
   - matplotlib
   - jupyterlab
+  - matplotlib-base=3.2.2
 prefix: /data/mlalande/miniconda3/envs/phd_v2
 
