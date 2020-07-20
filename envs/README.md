@@ -26,6 +26,7 @@ conda env create -f environment.yml
 
 ## PhD environments
 
+- phd_v2 (20/07/2020 work -> phd updated version for xarray -> html and proplot -> shading, made on CICLAD)
 - work_v1 (made the 24/06/2020 on Jean-Zay)
 - work (made on CICLAD -> didn't work on Jean-Zay?)
 
