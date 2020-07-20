@@ -1,0 +1,11 @@
+name: proplot_v0.6.4
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy
+  - jupyterlab
+  - proplot
+  - pandas
+prefix: /home/lalandmi/miniconda3/envs/proplot_v0.6.4
+
