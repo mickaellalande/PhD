@@ -1,0 +1,22 @@
+name: scipyconf2020
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - matplotlib
+  - numpy
+  - python
+  - xarray
+  - pandas
+  - jupyterlab
+  - netcdf4
+  - dask
+  - esgf-pyclient
+  - intake-esm
+  - gcsfs
+  - zarr
+  - nodejs
+  - esmpy
+  - xesmf
+prefix: /home/lalandmi/miniconda3/envs/scipyconf2020
+
