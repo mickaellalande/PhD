@@ -1,0 +1,11 @@
+name: xarray_v0.16.0
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - jupyterlab
+  - xarray
+  - netcdf4
+  - dask
+prefix: /home/lalandmi/miniconda3/envs/xarray_v0.16.0
+
