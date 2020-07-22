@@ -172,7 +172,7 @@ def get_model_infos(name, var):
     elif name in ['NorCPM1', 'NorESM2-LM', 'NorESM2-MM']:
         institude = 'NCC'
         grid = 'gn'
-        member = 'r1i1p1f1'
+        member = 'r2i1p1f1'
         calendar = 'noleap'
         
     elif name in ['SAM0-UNICON']:
@@ -215,26 +215,26 @@ def get_model_names():
       'CNRM-ESM2-1',
       'CanESM5',
       'CanESM5-CanOE',
-      'EC-Earth3',
-      'EC-Earth3-Veg',
+#       'EC-Earth3', # Missing some years
+#       'EC-Earth3-Veg', # Missing some years
 #       'EC-Earth3-Veg-LR', # Missing some years
       'FGOALS-f3-L',
       'GFDL-CM4',
       'GISS-E2-1-G',
-      'GISS-E2-1-G-CC',
+#       'GISS-E2-1-G-CC', # Missing some years for snc
       'GISS-E2-1-H',
       'HadGEM3-GC31-LL',
       'HadGEM3-GC31-MM',
       'IPSL-CM6A-LR',
       'MIROC-ES2L',
       'MIROC6',
-      'MPI-ESM-1-2-HAM',
+#       'MPI-ESM-1-2-HAM', # Missing some years for snc
       'MPI-ESM1-2-HR',
       'MPI-ESM1-2-LR',
       'MRI-ESM2-0',
 #       'NorCPM1', # Missing latitudes
       'NorESM2-LM',
-      'NorESM2-MM',
+#       'NorESM2-MM', # Missing some years for snc
       'SAM0-UNICON',
       'TaiESM1',
       'UKESM1-0-LL'

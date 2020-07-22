@@ -18,7 +18,7 @@ def get_table(var):
 
 def get_var_infos(var):
     if var in ['snc', 'frac_snow']:
-        label = 'Snow cover extent'
+        label = 'Snow Cover Extent'
         units = '%'
         cmap ='viridis'
         levels = plot.arange(0,100,10)
@@ -30,7 +30,7 @@ def get_var_infos(var):
         levels = plot.arange(-30,30,5)
         
     elif var in ['pr', 'tp', 'precip']:
-        label = 'Total precipitation'
+        label = 'Total Precipitation'
         units = 'mm/day'
         cmap ='DryWet'
         levels = plot.arange(0,5,0.5)

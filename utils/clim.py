@@ -55,7 +55,7 @@ def clim(ds, calendar='standard', season='annual', skipna=False):
     
     month_length = xr.DataArray(get_dpm(ds.time.to_index(), calendar=calendar), coords=[ds.time], name='month_length')
     
-    if season == 'annual':
+    if season in ['annual', 'Annual']:
         weights = month_length / month_length.sum()
         np.testing.assert_allclose(weights.sum().values, np.ones(1))
         with xr.set_options(keep_attrs=True):
@@ -111,7 +111,7 @@ def year_mean(da, calendar='standard', season='annual'):
 
     elif isinstance(season, str) and len(season) > 1:
         
-        if season == 'annual':
+        if season in ['annual', 'Annual']:
             normalize = month_length.astype(float).groupby('time.year').sum()
             weights = month_length.groupby('time.year') / normalize
             np.testing.assert_allclose(weights.groupby('time.year').sum().values, np.ones(normalize.year.size))
