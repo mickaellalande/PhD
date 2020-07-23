@@ -144,3 +144,6 @@ last.out
 
 */climaf.log
 */last.out
+
+# Dask
+*/dask-worker-space/*
