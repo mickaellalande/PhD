@@ -21,6 +21,8 @@ conda env export --from-history > environment.yml
 conda env create -f environment.yml
 ```
 
+Small bash script to save environment from one environment folder: `sh ../save_env.sh my_env`
+
 ---
 
 ## PhD environments
@@ -46,7 +48,7 @@ conda install xesmf dask
 # Need matplotlib<=3.2 for Proplot (https://github.com/lukelbd/proplot/issues/210)
 # Need nodejs>=10.0 for installing dask extension in jupyter-lab
 # xarray and other packages already installed with dask previously
-conda install jupyter jupyterlab "nodejs>=10.0" psutil netcdf4 proplot cartopy "matplotlib<=3.2" intake-esm python-graphvyz
+conda install jupyter jupyterlab "nodejs>=10.0" psutil netcdf4 proplot cartopy "matplotlib<=3.2" intake-esm python-graphviz
 
 # Fot testing xESMF
 pip install pytest  
