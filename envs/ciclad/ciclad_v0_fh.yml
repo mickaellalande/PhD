@@ -1,0 +1,19 @@
+name: ciclad_v0
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - esmpy
+  - xesmf
+  - dask
+  - nodejs[version='>=10.0']
+  - netcdf4
+  - jupyterlab
+  - matplotlib[version='<=3.2']
+  - jupyter
+  - psutil
+  - proplot
+  - intake-esm
+  - cartopy
+prefix: /data/mlalande/miniconda3/envs/ciclad_v0
+
