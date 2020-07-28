@@ -38,7 +38,7 @@ def get_model_infos(name, var):
     elif name in ['CAS-ESM2-0']:
         institude = 'CAS'
         grid = 'gn'
-        member = 'r2i1p1f1'
+        member = 'r4i1p1f1' # other members not present for pr
         calendar = '365_day'
         
     elif name in ['CESM2', 'CESM2-FV2', 'CESM2-WACCM', 'CESM2-WACCM-FV2']:
@@ -62,7 +62,7 @@ def get_model_infos(name, var):
     elif name in ['CanESM5', 'CanESM5-CanOE']:
         institude = 'CCCma'
         grid = 'gn'
-        member = 'r1i1p2f1'
+        member = 'r3i1p2f1'
         calendar = '365_day'
         
     elif name in ['E3SM-1-0', 'E3SM-1-1', 'E3SM-1-1-ECA']:
@@ -218,7 +218,7 @@ def get_model_names():
 #       'EC-Earth3', # Missing some years
 #       'EC-Earth3-Veg', # Missing some years
 #       'EC-Earth3-Veg-LR', # Missing some years
-      'FGOALS-f3-L',
+#       'FGOALS-f3-L', # Missing pr
       'GFDL-CM4',
       'GISS-E2-1-G',
 #       'GISS-E2-1-G-CC', # Missing some years for snc
