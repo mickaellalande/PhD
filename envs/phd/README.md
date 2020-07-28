@@ -15,7 +15,7 @@ conda install xesmf dask
 # Need matplotlib<=3.2 for Proplot (https://github.com/lukelbd/proplot/issues/210)
 # Need nodejs>=10.0 for installing dask extension in jupyter-lab
 # xarray and other packages already installed with dask previously
-conda install jupyter jupyterlab "nodejs>=10.0" netcdf4 proplot cartopy "matplotlib<=3.2" intake-esm python-graphviz
+conda install jupyter jupyterlab "nodejs>=10.0" netcdf4 proplot cartopy "matplotlib<=3.2" intake-esm python-graphviz nbresuse
 
 # Fot testing xESMF
 pip install pytest  
@@ -43,28 +43,16 @@ jupyter lab
 # SSH tunnel
 ssh -L 7227:ciclad14:7227 mlalande@ciclad2.ipsl.jussieu.fr
 
-```
+# Monitor extension
+# https://github.com/jtpio/jupyterlab-system-monitor
+jupyterlab-system-monitor
 
-**[Kernels for different environments](https://ipython.readthedocs.io/en/stable/install/kernel_install.html#kernels-for-different-environments)**:
-
-```bash
-python -m ipykernel install --user --name phd_v3
-
-# Launch jupyter-lab on your own port (xxxx)
-jupyter lab --port xxxx --ip 0.0.0.0 --no-browser
-
-# SSH tunel on your own terminal (with the port + the CICLAD node)
-ssh -L xxxx:cicladxx:xxxx login@ciclad2.ipsl.jussieu.fr
-
-# Problem with dask extension
-404 GET /dask/clusters?1595927028221 (172.20.3.252) 4.28ms referer=http://127.0.0.1:7227/lab
-
-# New tunel for dask
-ssh -L 8787:cicladxx:8787 login@ciclad2.ipsl.jussieu.fr
+# Code formatter
+# https://jupyterlab-code-formatter.readthedocs.io/en/latest/installation.html
+conda install nodejs
+jupyter labextension install @ryantam626/jupyterlab_code_formatter
+conda install -c conda-forge jupyterlab_code_formatter
+jupyter serverextension enable --py jupyterlab_code_formatter
+conda install black isort
 
 ```
-
-- ~~phd_v2~~ (20/07/2020 work -> phd updated version for xarray -> html and proplot -> shading, made on CICLAD)
-    - bug with the last version of Matplotlib 3.3 (https://github.com/lukelbd/proplot/issues/210)
-- work_v1 (made the 24/06/2020 on Jean-Zay)
-- **work** (made on CICLAD -> didn't work on Jean-Zay?)
