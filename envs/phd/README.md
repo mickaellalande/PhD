@@ -15,7 +15,7 @@ conda install xesmf dask
 # Need matplotlib<=3.2 for Proplot (https://github.com/lukelbd/proplot/issues/210)
 # Need nodejs>=10.0 for installing dask extension in jupyter-lab
 # xarray and other packages already installed with dask previously
-conda install jupyter jupyterlab "nodejs>=10.0" netcdf4 proplot cartopy "matplotlib<=3.2" intake-esm python-graphviz nbresuse
+conda install jupyter jupyterlab "nodejs>=10.0" netcdf4 proplot cartopy "matplotlib<=3.2" intake-esm python-graphviz nbresuse nc-time-axis
 
 # Fot testing xESMF
 pip install pytest  

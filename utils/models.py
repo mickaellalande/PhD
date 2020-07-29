@@ -199,7 +199,7 @@ def get_model_infos(name, var):
 
     return institude, grid, member, calendar
 
-
+# This is already a sublist from climaf (tas, snc, pr)
 def get_model_names():
     model_list = [
       'BCC-CSM2-MR',
@@ -209,7 +209,7 @@ def get_model_names():
       'CESM2-FV2',
       'CESM2-WACCM',
       'CESM2-WACCM-FV2',
-      'CIESM',
+#       'CIESM', # Precip too low
       'CNRM-CM6-1',
       'CNRM-CM6-1-HR',
       'CNRM-ESM2-1',

@@ -36,7 +36,7 @@ https://conda.anaconda.org/conda-forge/linux-64/lz4-c-1.9.2-he1b5a44_1.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/mpich-3.3.2-hc856adb_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.2-he1b5a44_1.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/nspr-4.27-he1b5a44_0.tar.bz2
-https://conda.anaconda.org/conda-forge/linux-64/openssl-1.1.1g-h516909a_0.tar.bz2
+https://conda.anaconda.org/conda-forge/linux-64/openssl-1.1.1g-h516909a_1.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/pcre-8.44-he1b5a44_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/pixman-0.38.0-h516909a_1003.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/pthread-stubs-0.4-h14c3975_1001.tar.bz2
@@ -210,6 +210,7 @@ https://conda.anaconda.org/conda-forge/linux-64/esmpy-8.0.1-mpi_mpich_py38h08b70
 https://conda.anaconda.org/conda-forge/linux-64/gdal-3.1.1-py38h172510d_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/graphviz-2.42.3-h0511662_0.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.7-py_0.tar.bz2
+https://conda.anaconda.org/conda-forge/noarch/nc-time-axis-1.2.0-py_1.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/pip-20.1.1-py_1.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/proplot-0.6.4-py_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/pyqt-5.12.3-py38ha8c2ead_3.tar.bz2
