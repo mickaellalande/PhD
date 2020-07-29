@@ -1,0 +1,9 @@
+name: xesmf_v5
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - dask
+  - xesmf
+prefix: /home/lalandmi/miniconda3/envs/xesmf_v5
+

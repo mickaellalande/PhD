@@ -1,0 +1,10 @@
+name: xesmf_v0
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - esmpy
+  - dask
+  - xesmf
+prefix: /home/lalandmi/miniconda3/envs/xesmf_v0
+

@@ -1,0 +1,11 @@
+name: xesmf_v1
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - netcdf4
+  - python=3.7
+  - xesmf
+  - dask
+prefix: /home/lalandmi/miniconda3/envs/xesmf_v1
+
