@@ -20,5 +20,6 @@ dependencies:
   - jupyterlab_code_formatter
   - black
   - isort
+  - nc-time-axis
 prefix: /data/mlalande/miniconda3/envs/phd_v3
 
