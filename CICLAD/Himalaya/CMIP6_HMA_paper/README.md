@@ -1,7 +1,5 @@
 # CMIP6 HMA paper
 
-https://docs.google.com/document/d/1YtkR1Ivote_Fm22uSTgONOdKv0Wifp9k3xWpRJiscuM/edit?usp=sharing
-
 ## Model list
 
 [
@@ -45,7 +43,7 @@ https://docs.google.com/document/d/1YtkR1Ivote_Fm22uSTgONOdKv0Wifp9k3xWpRJiscuM/
   
 ## Conda environment
 
-Conda environment `work.txt` (https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+Conda environment new `phd_v3`, old `work.txt` (https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 
 ```bash
 conda create --name myenv --file work.txt
