@@ -11,15 +11,14 @@ dependencies:
   - proplot
   - nodejs[version='>=10.0']
   - intake-esm
-  - matplotlib[version='<=3.2']
-  - jupyterlab
+  - matplotlib=3.2
   - cartopy
   - python-graphviz
   - nb_conda_kernels
   - nbresuse
-  - jupyterlab_code_formatter
   - black
   - isort
   - nc-time-axis
+  - jupyterlab
 prefix: /data/mlalande/miniconda3/envs/phd_v3
 

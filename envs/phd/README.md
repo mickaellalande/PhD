@@ -1,6 +1,6 @@
 ## PhD environments
 
-- **phd_v3** (28/07/2020 update from work + intake + jupyter-lab)
+- **phd_v3** (30/07/2020 update from work + intake + jupyter-lab)
 
 **Installation**:
 
@@ -9,6 +9,7 @@ conda create -n phd_v3
 conda activate phd_v3
 
 # Need to install first esmpy separatly (https://github.com/JiaweiZhuang/xESMF/issues/47#issuecomment-582421822)
+# It looks like it doesn't matter anymore about the order
 conda install esmpy
 conda install xesmf dask
 
@@ -42,6 +43,8 @@ jupyter lab
 
 # SSH tunnel
 ssh -L 7227:ciclad14:7227 mlalande@ciclad2.ipsl.jussieu.fr
+
+# Finally these jypter lab extensions are not that stable...
 
 # Monitor extension
 # https://github.com/jtpio/jupyterlab-system-monitor
