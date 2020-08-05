@@ -27,10 +27,18 @@ pytest -v --pyargs xesmf  #all need to pass
 # https://stackoverflow.com/questions/39604271/conda-environments-not-showing-up-in-jupyter-notebook
 conda install nb_conda_kernels
 
+# To get %matplotlib notebook working
+# https://stackoverflow.com/questions/51922480/javascript-error-ipython-is-not-defined-in-jupyterlab
+# https://github.com/matplotlib/ipympl
+conda install ipympl
+
 # Configure jupyter
 # https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
 jupyter notebook --generate-config
 gvim ~/.jupyter/jupyter_notebook_config.py
+
+# Send report to Anaconda in case of errors
+conda config --set report_errors true
 
 # https://stackoverflow.com/questions/42848130/why-i-cant-access-remote-jupyter-notebook-server
 c.NotebookApp.allow_origin = '*'
