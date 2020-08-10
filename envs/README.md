@@ -67,15 +67,15 @@ ssh -L xxxx:cicladxx:xxxx login@ciclad2.ipsl.jussieu.fr
 ssh -L 8787:cicladxx:8787 login@ciclad2.ipsl.jussieu.fr
 
 ```
-
+---
 ## Proplot environments
-
 - proplot_v0.6.4 (20/07/2020 for testing bar bug)
 
 ## Xarray environments
-
 - xarray_v0.16.0 (21/07/2020 for testing time.encoding bug)
 
 ## ScipyConf environments
-
 - scipyconf2020 (21/07/2020 for [SciPyConf 2020 tutorials](https://www.scipy2020.scipy.org/tutorial-information) + [videos](https://www.youtube.com/playlist?list=PLYx7XA2nY5Gde-6QO98KUJ9iL_WW4rgYf))
+
+## Intake-esm
+- 
