@@ -96,7 +96,7 @@ def clim(ds, calendar='standard', season='annual', skipna=False):
     
 
 # Yearly mean (on monthly data set)
-def year_mean(da, calendar='standard', season='annual'):
+def year_mean(da, calendar='standard', season='annual', skipna=False):
     # season = 'DJF' can be string
     # season = 1 or int for a single month
 
