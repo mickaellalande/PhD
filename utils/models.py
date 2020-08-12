@@ -241,5 +241,39 @@ def get_model_names():
     ]
     
     return model_list
+
+
+def get_model_names_projections():
+    model_list = [
+      'BCC-CSM2-MR',
+#       'BCC-ESM1',
+#       'CAS-ESM2-0',
+      'CESM2',
+#       'CESM2-FV2',
+#       'CESM2-WACCM', # /bdd/CMIP6/ScenarioMIP/NCAR/CESM2-WACCM/ssp585/r1i1p1f1/Amon/pr/gn/latest/ missing years
+#       'CESM2-WACCM-FV2',
+      'CNRM-CM6-1',
+      'CNRM-CM6-1-HR',
+      'CNRM-ESM2-1',
+      'CanESM5',
+      'CanESM5-CanOE',
+#       'GFDL-CM4',
+#       'GISS-E2-1-G',
+#       'GISS-E2-1-H',
+#       'HadGEM3-GC31-LL', # missing ssp370
+#       'HadGEM3-GC31-MM',
+      'IPSL-CM6A-LR',
+      'MIROC-ES2L',
+      'MIROC6',
+#       'MPI-ESM1-2-HR',
+#       'MPI-ESM1-2-LR', # /bdd/CMIP6/ScenarioMIP/MPI-M/MPI-ESM1-2-LR/ssp126/r1i1p1f1/Amon/pr/gn/latest/ missing years
+      'MRI-ESM2-0',
+#       'NorESM2-LM',
+#       'SAM0-UNICON',
+#       'TaiESM1',
+      'UKESM1-0-LL'
+    ]
+    
+    return model_list
     
 
