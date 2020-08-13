@@ -146,4 +146,4 @@ last.out
 */last.out
 
 # Dask
-*/dask-worker-space/*
+dask-worker-space/
