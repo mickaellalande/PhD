@@ -4,7 +4,7 @@
 
 Mickaël LALANDE (mickael.lalande@univ-grenoble-alpes.fr) - Septembre 2020
 
-## Installation de Miniconda/Anaconda
+## Installation de Miniconda/Anaconda
 
 1. **Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)**:
    (if you don't already have an installation of Anaconda/Miniconda -> Miniconda is lighter and allows to only install the packages that you need)
@@ -48,7 +48,7 @@ conda activate my_env
 
 
 
-## Installation de l'environnement de travail pour ce projet
+## Installation de l'environnement de travail pour ce projet
 
 1. **Installation à partir d'un fichier** (dans le dossier [env](env))
 
