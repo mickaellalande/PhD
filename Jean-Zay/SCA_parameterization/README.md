@@ -1,4 +1,4 @@
-# To implement new Snow Cover Area (SCA) parameterization in LMDZ/ORCHIDEE
+# To implement new Snow Cover Fraction (SCF) parameterization in LMDZ/ORCHIDEE
 
 This folder is intended for making the analyze of the simulations made on Jean-Zay for the following repository: https://github.com/mickaellalande/SCA_parameterization
 
@@ -13,3 +13,23 @@ Initial conditions `EXPERIMENTS/LMDZ/CREATE_clim_360d/config.card` with the new 
 - THREDDS: `/gpfsdsmnt/ipsl/dods/pub/ufz23bm/IGCM_OUT/LMDZ/ELC-144x142x79-GMTED-STD`
 - CICLAD: `/thredds/idris/work/ufz23bm/IGCM_OUT/LMDZ/ELC-144x142x79-GMTED-STD` 
 - https://vesg.ipsl.upmc.fr/thredds/catalog/idris_work/ufz23bm/IGCM_OUT/LMDZ/catalog.html
+
+
+## LMDZOR-STD-TEST (1 an)
+
+```fortran
+frac_snow_veg(:) = tanh(snowdepth(:)/(0.025*(snowrho_ave(:)*(1+zstd_not_filtered(:)/200.)/50.)))
+```
+
+zstd physiq -> conveg compil ok (with Laurent)
+
+ lmdz-zstd-to-condveg
+@mickaellalande
+mickaellalande committed 22 hours ago 
+1 parent 8bcc93a commit fec3ee5485f5a946abc5cd26c3ecf6f0749c6610
+
+- Jean-Zay WORK: `/gpfswork/rech/goe/ufz23bm/SCA_parameterization/modipsl/config/LMDZOR_v6/LMDZOR-STD-TEST`
+- Jean-Zay STORE: `/gpfsscratch/rech/goe/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-TEST`
+- THREDDS: `/gpfsdsmnt/ipsl/dods/pub/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-TEST/`
+- CICLAD: `/thredds/idris/work/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-TEST/` 
+- 
