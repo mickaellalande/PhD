@@ -32,4 +32,34 @@ mickaellalande committed 22 hours ago
 - Jean-Zay STORE: `/gpfsscratch/rech/goe/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-TEST`
 - THREDDS: `/gpfsdsmnt/ipsl/dods/pub/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-TEST/`
 - CICLAD: `/thredds/idris/work/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-TEST/` 
-- 
+- https://vesg.ipsl.upmc.fr/thredds/catalog/idris_work/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-TEST/catalog.html
+
+
+## LMDZOR-STD-REF
+
+```fortran
+! LMDZOR-STD-REF
+frac_snow_veg(:) = tanh(snowdepth(:)/(0.025*(snowrho_ave(:)/50.)))
+```
+https://github.com/mickaellalande/PhD/blob/master/local/SCE_SWE_parametization/Niu2007.ipynb
+
+- Jean-Zay WORK: `/gpfsdswork/projects/rech/goe/ufz23bm/SCA_parameterization/modipsl/config/LMDZOR_v6/LMDZOR-STD-REF`
+- Jean-Zay STORE: `/gpfsstore/rech/goe/ufz23bm/IGCM_OUT/LMDZOR/PROD/clim/LMDZOR-STD-REF`
+- THREDDS: `/gpfsdsmnt/ipsl/dods/pub/ufz23bm/IGCM_OUT/LMDZOR/PROD/clim/LMDZOR-STD-REF/`
+- CICLAD: `/thredds/idris/work/ufz23bm/IGCM_OUT/LMDZOR/PROD/clim/LMDZOR-STD-REF/` 
+- https://vesg.ipsl.upmc.fr/thredds/catalog/idris_work/ufz23bm/IGCM_OUT/LMDZOR/PROD/clim/LMDZOR-STD-REF/catalog.html
+
+
+## LMDZOR-STD-NY07-CUSTOM-200
+
+```fortran
+! LMDZOR-STD-NY07-CUSTOM-200
+frac_snow_veg(:) = tanh(snowdepth(:)/(0.025*(snowrho_ave(:)*(1+zstd_not_filtered(:)/200.)/50.)))
+```
+https://github.com/mickaellalande/PhD/blob/master/local/SCE_SWE_parametization/Niu2007-std.ipynb
+
+- Jean-Zay WORK: `/gpfswork/rech/goe/ufz23bm/SCA_parameterization/modipsl/config/LMDZOR_v6/LMDZOR-STD-NY07-CUSTOM-200`
+- Jean-Zay STORE: `/gpfsscratch/rech/goe/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-NY07-CUSTOM-200
+- THREDDS: `/gpfsdsmnt/ipsl/dods/pub/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-NY07-CUSTOM-200/`
+- CICLAD: `/thredds/idris/work/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-NY07-CUSTOM-200T/` 
+- https://vesg.ipsl.upmc.fr/thredds/catalog/idris_work/ufz23bm/IGCM_OUT/LMDZOR/TEST/clim/LMDZOR-STD-NY07-CUSTOM-200/catalog.html
