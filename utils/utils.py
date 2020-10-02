@@ -17,6 +17,8 @@ from variables import * # get var infos and cmap
 from clim import * # makes weighted montlhy computations
 from zones import * # make zones
 from LMDZ_tools import * # LMDZ tools 
+from obs import * # Load observations
+from regrid import * # Regrid
 
 
 # =============================================================================
@@ -42,6 +44,93 @@ def get_human_readable_size(num):
         i += 1
         rounded_val = round(float(num) / 2 ** exp_str[i][0], 2)
     return '%s %s' % (int(rounded_val), exp_str[i][1])
+
+def check_period_size(period, ds_sub, ds, frequency='monthly'):
+    """
+        Check if the data size is equal the actual period size.
+        
+        Parameters
+        ----------
+        period : slice 
+            Applied period slicing (time dimension needs to be named 'time').
+            
+        ds_sub : xarray.core.dataarray.DataArray, xarray.core.dataset.Dataset
+            Subset data.
+            
+        ds : xarray.core.dataarray.DataArray, xarray.core.dataset.Dataset
+            Data before subset.
+            
+        frequency : str
+            Frequency of the data (ex: 'monthly', 'daily', etc.).
+        
+        Example
+        -------
+        >>> import numpy as np
+        >>> import xarray as xr
+        >>> import sys
+        >>> sys.path.insert(1, '/home/mlalande/notebooks/utils')
+        >>> import utils as u
+        >>>
+        >>> period = slice('1979','2014')
+        >>> ds = xr.open_dataset(...)
+        >>> ds_sub = ds.sel(time=period)
+        >>> u.check_period(period, ds_sub, ds, frequency='monthly')
+        
+    """
+    
+    # Compute the expected size of the period 
+    if frequency == 'monthly':
+        expected_period = (int(period.stop)-int(period.start)+1)*12
+    else:
+        raise ValueError(f"Invalid frequency argument: '{frequency}'. Valid names are: 'monthly'.")
+    
+    # Check that the expected period fits with the subset of the data
+    np.testing.assert_equal(
+        expected_period, 
+        ds_sub.time.size, 
+        err_msg=f"Invalid period argument: '{period}'. Valid period: {ds.isel(time=0)['time.year'].values} to {ds.isel(time=-1)['time.year'].values}."
+    )
+
+        
+        
+def check_first_last_year(period, ds):
+    """
+        Check if the data is fitting in the period.
+        
+        Parameters
+        ----------
+        period : slice 
+            Applied period slicing (time dimension needs to be named 'time').
+            
+        ds : xarray.core.dataarray.DataArray, xarray.core.dataset.Dataset
+            Data.
+        
+        Example
+        -------
+        >>> import xarray as xr
+        >>> import sys
+        >>> sys.path.insert(1, '/home/mlalande/notebooks/utils')
+        >>> import utils as u
+        >>>
+        >>> period = slice('1979','2014')
+        >>> ds = xr.open_dataset(...)
+        >>> u.check_first_last_year(period, ds)
+        
+    """
+     
+    # Check that the expected period fits in the data period
+    np.testing.assert_array_less(
+        int(ds.isel(time=0)['time.year'].values)-1,
+        int(period.start),
+        err_msg=f"Invalid period.start argument: '{period.start}'. Min period: '{ds.isel(time=0)['time.year'].values}'."
+    )
+    
+    np.testing.assert_array_less(
+        int(period.stop),
+        int(ds.isel(time=-1)['time.year'].values)+1,
+        err_msg=f"Invalid period.stop argument: '{period.stop}'. Max period: '{ds.isel(time=-1)['time.year'].values}'."
+    )
+    
 
 
 # =============================================================================
