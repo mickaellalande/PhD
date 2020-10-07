@@ -8,6 +8,59 @@ import cartopy.crs as ccrs
 # Zones
 # =============================================================================
 
+
+def get_zone(zone):
+    """
+        Get the latitude and longitude limits for the corresponding zone.
+
+        Parameters
+        ----------
+        zone : str 
+            Zone name. Options are:
+            
+            - 'GLOB'
+            - 'HMA'
+        
+        Returns
+        -------
+        latlim, lonlim : slice
+            Latitude and longitude limits of the zone.
+
+        Example
+        -------
+        >>> import sys
+        >>> sys.path.insert(1, '/home/mlalande/notebooks/utils')
+        >>> import utils as u
+        >>>
+        >>>
+        >>> latlim, lonlim = u.get_zone('HMA')
+                         
+    """
+    
+    # Global
+    if zone in ['GLOB', 'global', 'GLOBAL']:
+        latlim = slice(-90,90)
+        lonlim = slice(-180,180)
+    
+    # High Mountain of Asia (HMA)
+    elif zone in ['HMA']:
+        latlim = slice(20,50)
+        lonlim = slice(60,110)
+#         latlim = slice(20,45)
+#         lonlim = slice(60,110)
+        
+    else:
+        raise ValueError(
+            f"""Invalid zone argument: '{zone}'. Valid zones are: 
+                - 'GLOB', 'global', 'GLOBAL'                         
+                - 'HMA'
+             """                                        
+        )
+    
+    return latlim, lonlim
+
+
+
 def get_domain_HMA():
     latlim = slice(20,45)
     lonlim = slice(60,110)
