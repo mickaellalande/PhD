@@ -21,7 +21,8 @@ def get_zone(zone):
         zone : str
             Zone name. Options are:
 
-            - 'GLOB'
+            - 'GLOB', 'global', 'GLOBAL'
+            - 'NH'
             - 'HMA'
 
         Returns
@@ -44,6 +45,11 @@ def get_zone(zone):
     if zone in ['GLOB', 'global', 'GLOBAL']:
         latlim = slice(-90, 90)
         lonlim = slice(-180, 180)
+        
+    # North Hemisphere
+    elif zone in ['NH']:
+        latlim = slice(0, 90)
+        lonlim = slice(-180, 180)
 
     # High Mountain of Asia (HMA)
     elif zone in ['HMA']:
@@ -56,6 +62,7 @@ def get_zone(zone):
         raise ValueError(
             f"""Invalid zone argument: '{zone}'. Valid zones are:
                 - 'GLOB', 'global', 'GLOBAL'
+                - 'NH'
                 - 'HMA'
              """
         )

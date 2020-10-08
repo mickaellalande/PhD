@@ -38,9 +38,12 @@ def plot_ref_new_obs(
             Units of the variables.
 
         ref, new, obs : DataArray
-            Reference, new simulation and observation. Needs to have the
-            attributes 'title' for the name of the plots and 'period' for the
-            suptitle and saving the figure.
+            Reference, new simulation and observation. The following attributes
+            are needed:
+                - 'title' for the name of the plots 
+                - 'period' for the suptitle and saving the figure
+                - 'season' for the suptitle and saving the figure
+                - 'zone' for the suptitle and saving the figure
 
         levels, levels_diff, levels_bias : numpy.ndarray, optional
             Levels for the plots.
@@ -99,39 +102,57 @@ def plot_ref_new_obs(
 
 
     """
-
-    fig, axs = plot.subplots(proj='cyl', ncols=3, nrows=2)
+    
+    # Change orientation for some zones
+    if ref.attrs['zone'] not in ['NH']:
+        axwidth = 2.5
+        ncols = 3; nrows = 2; cbar_loc = 'r'
+        i_ref = 0; i_new = 1; i_diff = 2
+        i_ref_bias = 3; i_new_bias = 4; i_obs = 5
+    else:
+        axwidth = 4.5
+        ncols = 2; nrows = 3; cbar_loc = 'b'
+        i_ref = 0; i_new = 2; i_diff = 4
+        i_ref_bias = 1; i_new_bias = 3; i_obs = 5
+    
+    
+    fig, axs = plot.subplots(proj='cyl', ncols=ncols, nrows=nrows, 
+                             axwidth=axwidth)
 
     # Reference simulation
-    m0 = axs[0].pcolormesh(ref, cmap=cmap, levels=levels, extend=extend)
-    axs[0].format(title=ref.title)
+    m0 = axs[i_ref].pcolormesh(ref, cmap=cmap, levels=levels, extend=extend)
+    axs[i_ref].format(title=ref.title)
 
     # New simulation
-    axs[1].pcolormesh(new, cmap=cmap, levels=levels, extend=extend)
-    axs[1].format(title=new.title)
-    axs[1].colorbar(m0, label=label + ' [' + units + ']')
+    axs[i_new].pcolormesh(new, cmap=cmap, levels=levels, extend=extend)
+    axs[i_new].format(title=new.title)
+    axs[i_new].colorbar(m0, label=label + ' [' + units + ']', loc=cbar_loc)
 
     # Differences between the new and reference simulation
-    m2 = axs[2].pcolormesh(new - ref, cmap=cmap_diff, levels=levels_diff,
+    m2 = axs[i_diff].pcolormesh(new - ref, cmap=cmap_diff, levels=levels_diff,
                            extend=extend_diff)
-    axs[2].format(title=ref.title + '\n - ' + new.title)
-    axs[2].colorbar(m2, label='Bias of ' + label + ' [' + units + ']')
+    axs[i_diff].format(title=ref.title + '\n - ' + new.title)
+    axs[i_diff].colorbar(m2, 
+                         label='Difference of\n' + label + ' [' + units + ']',
+                         loc=cbar_loc)
 
     # Bias of reference simulation regarding to observation
-    m3 = axs[3].pcolormesh(ref - obs, cmap=cmap_bias, levels=levels_bias,
-                           extend=extend_bias)
-    axs[3].format(title=ref.title + '\n - ' + obs.obs_name)
+    m3 = axs[i_ref_bias].pcolormesh(ref - obs, cmap=cmap_bias, 
+                                    levels=levels_bias, extend=extend_bias)
+    axs[i_ref_bias].format(title=ref.title + '\n - ' + obs.obs_name)
 
     # Bias of new simulation regarding to observation
-    axs[4].pcolormesh(new - obs, cmap=cmap_bias, levels=levels_bias,
+    axs[i_new_bias].pcolormesh(new - obs, cmap=cmap_bias, levels=levels_bias,
                       extend=extend_bias)
-    axs[4].format(title=new.title + '\n - ' + obs.obs_name)
-    axs[4].colorbar(m3, label='Bias of ' + label + ' [' + units + ']')
+    axs[i_new_bias].format(title=new.title + '\n - ' + obs.obs_name)
+    axs[i_new_bias].colorbar(m3, 
+                             label='Bias of\n' + label + ' [' + units + ']',
+                             loc=cbar_loc)
 
     # Observation
-    axs[5].pcolormesh(obs, cmap=cmap, levels=levels, extend=extend)
-    axs[5].format(title=obs.obs_name)
-    axs[5].colorbar(m0, label=label + ' [' + units + ']')
+    axs[i_obs].pcolormesh(obs, cmap=cmap, levels=levels, extend=extend)
+    axs[i_obs].format(title=obs.obs_name)
+    axs[i_obs].colorbar(m0, label=label + ' [' + units + ']', loc=cbar_loc)
 
     axs.format(
         labels=True,
@@ -139,7 +160,8 @@ def plot_ref_new_obs(
         borders=True,
         latlim=(ref.lat.min(), ref.lat.max()),
         lonlim=(ref.lon.min(), ref.lon.max()),
-        suptitle=label + " annual climatology: " + new.period,
+        suptitle=label + " " + ref.attrs['season'] + " climatology: " + \
+            new.attrs['period'],
         abc=True
     )
 
@@ -149,10 +171,14 @@ def plot_ref_new_obs(
                 'img/' +
                 var +
                 '_' +
-                new.title +
-                '_REF_' +
-                obs.obs_name +
+                ref.attrs['zone'] +
                 '_' +
-                new.period +
+                ref.attrs['season'] +
+                '_clim_' +
+                new.attrs['period'] +
+                '_' +
+                new.attrs['title'] +
+                '_REF_' +
+                obs.attrs['obs_name'] +
                 '.' +
                 extension)
