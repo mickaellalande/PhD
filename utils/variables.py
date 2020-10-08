@@ -32,9 +32,10 @@ def get_var_infos(var):
         var : str
             Variable name. Options are:
 
-            - 'snc', 'frac_snow'
-            - 'tas', 't2m', 'tmp
-            - 'pr'
+            - 'snc', 'frac_snow' (Snow Cover Extent)
+            - 'tas', 't2m', 'tmp (Near-Surface Air Temperature)
+            - 'pr' (Total Precipitation)
+            - 'ta' (Air Temperature)
 
         Returns
         -------
@@ -136,15 +137,26 @@ def get_var_infos(var):
     elif var == 'ta':
         label = 'Air Temperature'
         units = '°C'
-        cmap = 'CoolWarm'
-        levels = plot.arange(-7, 7, 1)
+        
+        levels = plot.arange(-30, 30, 2)
+        cmap = 'Spectral'
+        extend = 'both'
+
+        levels_diff = plot.arange(-1, 1, 0.2)
+        cmap_diff = 'BuRd'
+        extend_diff = 'neither'
+
+        levels_bias = plot.arange(-7, 7, 1)
+        cmap_bias = 'BuRd'
+        extend_bias = 'neither'
 
     else:
         raise ValueError(
             f"""Invalid variable argument: '{var}'. Valid names are:
-                 - 'snc', 'frac_snow'
-                 - 'tas', 't2m', 'tmp
-                 - 'pr'
+                - 'snc', 'frac_snow' (Snow Cover Extent)
+                - 'tas', 't2m', 'tmp (Near-Surface Air Temperature)
+                - 'pr' (Total Precipitation)
+                - 'ta' (Air Temperature)
              """
         )
 
