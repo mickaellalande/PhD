@@ -43,13 +43,13 @@ def get_zone(zone):
 
     # Global
     if zone in ['GLOB', 'global', 'GLOBAL']:
-        latlim = slice(-90, 90)
-        lonlim = slice(-180, 180)
+        latlim = slice(None)
+        lonlim = slice(None)
         
     # North Hemisphere
     elif zone in ['NH']:
         latlim = slice(0, 90)
-        lonlim = slice(-180, 180)
+        lonlim = slice(None)
 
     # High Mountain of Asia (HMA)
     elif zone in ['HMA']:

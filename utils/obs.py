@@ -47,6 +47,9 @@ def get_obs(
             http://aphrodite.st.hirosaki-u.ac.jp/download/data/search/,
             http://aphrodite.st.hirosaki-u.ac.jp/download/ V1101 et V1101EX_R1
             domain MA
+            
+            - 'ERAI': ERA-Interim 
+            (https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era-interim)
 
 
         version, var : str
@@ -55,6 +58,7 @@ def get_obs(
             - MEaSUREs: 'v01r01' / 'snc'
             - CRU_TS: '4.00', '4.04' / 'tas'
             - APHRO_MA: 'V1101' / 'pr'
+            - ERAI: '' / 'ta'
 
         period : slice, optional
             Time period (ex: slice('1979','2014')). Default is no slicing.
@@ -320,7 +324,64 @@ def get_obs(
                 f"Invalid obs_name argument: '{obs_name}'. "
                  "Valid names are: 'CRU'."
             )
+            
+    ###################
+    # Air Temperature #
+    ###################
+    elif var in ['ta']:
 
+        # ERA-Interim: https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era-interim
+        if obs_name in ['ERAI']:
+
+            if version not in ['']:
+                raise ValueError(
+                    f"Invalid version argument: '{version}'. "
+                     "Valid version are: ''."
+                )
+
+            # Select machine
+            if machine in ['CICLAD']:
+
+                if version == '':
+                    path = '/bdd/ERAI/NETCDF/GLOBAL_075/1xmonthly/AN_PL/*/' \
+                        'ta.*.apmei.GLOBAL_075.nc'
+                    path_ps = '/data/mlalande/ERAI/sp/sp_ERAI_*.nc'
+
+            else:
+                raise ValueError(
+                    f"Invalid machine argument: '{machine}'. "
+                     "Valid names are: 'CICLAD'."
+                )
+                
+            # Get raw data
+            print('Get observation: ' + obs_name + '\n' + path + '\n')
+            ds = xr.open_mfdataset(path, combine='by_coords')
+            ds_ps = xr.open_mfdataset(path_ps, combine='by_coords')
+            ds_ps = ds_ps.rename({'longitude': 'lon', 'latitude': 'lat'})
+            u.check_first_last_year(period, ds)
+
+            # Select period
+            obs = ds.sel(time=period).ta.sortby('lat') - 273.15
+            obs_ps = ds_ps.sel(time=period).sp.sortby('lat')
+            u.check_period_size(period, obs, ds, frequency='monthly')
+
+            # Mask vertical values > ps and convert units
+            obs = obs.where(obs.level <= obs_ps/100)
+            
+            obs.attrs['units'] = '°C'
+            obs.attrs['obs_name'] = obs_name
+            obs.attrs.update(ds.attrs)
+
+        else:
+            raise ValueError(
+                f"Invalid obs_name argument: '{obs_name}'. "
+                 "Valid names are: 'CRU'."
+            )
+            
+            
+    #########
+    # Error #
+    #########
     else:
         raise ValueError(
             f"""Invalid var argument: '{var}'. Valid names are:
@@ -347,7 +408,8 @@ def get_obs(
             periodic = False
         else:
             periodic = True
-
+        
+        # Horizontal regrid
         obs = u.regrid(
             obs,
             regrid,
@@ -355,5 +417,9 @@ def get_obs(
             globe=globe,
             periodic=periodic,
             reuse_weights=True)
+        
+        # Vertical regrid for 3D ATM data
+        if var in ['ta']:
+            obs = obs.interp(level=(regrid.level.values), method='linear')
 
     return obs
