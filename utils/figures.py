@@ -372,6 +372,13 @@ def plot_zonal_bias_HMA(
         levels=levels_diff,
         extend=extend_diff
     )
+    axs[k].contour(
+        new.mean('lon', skipna=False),
+        color=color,
+        lw=lw,
+        alpha=alpha,
+        labels=True
+    )
     axs[k].format(
         ylim=ylim,
         title=''
@@ -384,6 +391,13 @@ def plot_zonal_bias_HMA(
         cmap=cmap_diff,
         levels=levels_diff,
         extend=extend_diff
+    )
+    axs[k].contour(
+        new.sel(lon=lonlim).mean('lon', skipna=False),
+        color=color,
+        lw=lw,
+        alpha=alpha,
+        labels=True
     )
     axs[k].format(
         ylim=ylim,
@@ -400,6 +414,16 @@ def plot_zonal_bias_HMA(
         cmap=cmap_diff,
         levels=levels_diff,
         extend=extend_diff
+    )
+    axs[k].contour(
+        new.where(
+            (bias.lon < lonlim.start) | (bias.lon > lonlim.stop),
+            drop=True
+        ).mean('lon', skipna=False),
+        color=color,
+        labels=True,
+        lw=lw,
+        alpha=alpha
     )
     axs[k].format(
         ylim=ylim,
