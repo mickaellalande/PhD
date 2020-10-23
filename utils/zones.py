@@ -22,8 +22,9 @@ def get_zone(zone):
             Zone name. Options are:
 
             - 'GLOB', 'global', 'GLOBAL'
-            - 'NH'
-            - 'HMA'
+            - 'NH' : North Hemisphere
+            - 'HMA' : High Mountain of Asia
+            - 'NA' : North America
 
         Returns
         -------
@@ -58,12 +59,18 @@ def get_zone(zone):
 #         latlim = slice(20,45)
 #         lonlim = slice(60,110)
 
+    # North America
+    elif zone in ['NA']:
+        latlim = slice(0, 70)
+        lonlim = slice(-150, -80)
+
     else:
         raise ValueError(
             f"""Invalid zone argument: '{zone}'. Valid zones are:
                 - 'GLOB', 'global', 'GLOBAL'
-                - 'NH'
-                - 'HMA'
+                - 'NH' : North Hemisphere
+                - 'HMA' : High Mountain of Asia
+                - 'NA' : North America
              """
         )
 
