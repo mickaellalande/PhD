@@ -22,6 +22,7 @@ from LMDZ_tools import *  # LMDZ tools
 from obs import *  # Load observations
 from regrid import *  # Regrid
 from figures import *  # Make plots
+from param_SCF import * # Parameterization SCF
 
 
 # =============================================================================
