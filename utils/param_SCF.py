@@ -10,7 +10,7 @@
 import numpy as np
 
 
-def scf(param, SWE, rho_snow, sigma_topo=0):
+def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
     """
         Function computing the Snow Cover Fraction (SCF) from the Snow Water
         Equivalent (SWE) from different parameterizations.
@@ -21,18 +21,25 @@ def scf(param, SWE, rho_snow, sigma_topo=0):
             Parameterization name. Options are:
 
             - 'NY07': Niu and Yang, 2007
-        (https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2007JD008674)
+        https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2007JD008674
         
             - 'NY07_STD': custom version of NY07
+            
+            - 'SL12': Swenson and Lawrence, 2012
+        https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2012JD018178
 
         SWE : float, array
-            Swno Water Equivalent value(s) [mm or kg/m2].
+            Snow Water Equivalent value(s) [mm or kg/m2].
 
-        rho_snow : float, array
-            Density of the snow value(s) [kg/m3].
+        rho_snow : float, array, optional
+            Density of the snow value(s) [kg/m3]. Default is 100 kg/m3.
             
         sigma_topo : float, array, optional
-            Standard deviation of the topography [m]. Default is 0.
+            Standard deviation of the topography [m]. Default is 0 m.
+        
+        SWE_max : float, array, optional
+            Maximum Snow Water Equivalent value(s) [mm or kg/m2]. Default is
+            200 km/m2.
 
         Returns
         -------
@@ -73,13 +80,19 @@ def scf(param, SWE, rho_snow, sigma_topo=0):
         m = 1  # empirical constant
 
         scf = np.tanh(
-            (SWE) / (2.5 * z_0g * rho_snow * (rho_snow / rho_new)**m * (1+sigma_topo/200) )
+            (SWE) / (2.5 * z_0g * rho_snow * (rho_snow / rho_new)**m * (1 + sigma_topo / 200) )
         )
-
+        
+    elif param == 'SL12':
+        epsilon = 1e-6
+        N_melt = 200 / (sigma_topo + epsilon)
+        
+        scf = 1 - ( 1 / np.pi * np.arccos( 2 * SWE / SWE_max - 1 ) )**N_melt
+        
     else:
         raise ValueError(
             f"Invalid parameterization argument: '{param}'. "
-            "Valid names are: 'NY07', 'NY07_STD'."
+            "Valid names are: 'NY07', 'NY07_STD', 'SL12'."
         )
 
     return scf * 100
