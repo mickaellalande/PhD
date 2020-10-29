@@ -80,7 +80,8 @@ def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
         m = 1  # empirical constant
 
         scf = np.tanh(
-            (SWE) / (2.5 * z_0g * rho_snow * (rho_snow / rho_new)**m * (1 + sigma_topo / 200) )
+            (SWE) / (2.5 * z_0g * rho_snow * (rho_snow / rho_new)**m * 
+                     (1 + sigma_topo / 200) )
         )
         
     elif param == 'SL12':
