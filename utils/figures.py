@@ -170,6 +170,8 @@ def plot_ref_new_obs(
         for extension in ['jpg', 'png', 'pdf']:
             fig.save(
                 'img/' +
+                new.attrs['title'] +
+                '/' +
                 var +
                 '_' +
                 ref.attrs['zone'] +
@@ -459,6 +461,8 @@ def plot_zonal_bias_HMA(
         for extension in ['jpg', 'png', 'pdf']:
             fig.save(
                 'img/' +
+                new.attrs['title'] +
+                '/' +
                 var +
                 '_' +
                 ref.attrs['zone'] +
