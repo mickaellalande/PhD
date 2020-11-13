@@ -85,7 +85,9 @@ def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
         )
         
     elif param == 'SL12':
-        epsilon = 1e-6
+#         epsilon = 1e-6
+        epsilon = 20
+#         N_melt = 200 / (sigma_topo + epsilon)
         N_melt = 200 / (sigma_topo + epsilon)
         
         scf = 1 - ( 1 / np.pi * np.arccos( 2 * SWE / SWE_max - 1 ) )**N_melt
@@ -96,4 +98,5 @@ def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
             "Valid names are: 'NY07', 'NY07_STD', 'SL12'."
         )
 
-    return scf * 100
+#     return scf * 100
+    return scf
