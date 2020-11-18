@@ -89,7 +89,7 @@ def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
 #         epsilon = 10
 #         N_melt = 200 / (sigma_topo + epsilon)
 #         N_melt = 200 / (sigma_topo + epsilon)
-        N_melt = 200 / np.max([20, sigma_topo])
+        N_melt = 200 / np.max([30, sigma_topo])
         
         scf = 1 - ( 1 / np.pi * np.arccos( 2 * SWE / SWE_max - 1 ) )**N_melt
         
