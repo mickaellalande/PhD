@@ -144,7 +144,7 @@ def get_var_infos(var):
 
         levels_diff = plot.arange(-1, 1, 0.2)
         cmap_diff = 'BuRd'
-        extend_diff = 'neither'
+        extend_diff = 'both'
 
         levels_bias = plot.arange(-7, 7, 1)
         cmap_bias = 'BuRd'
