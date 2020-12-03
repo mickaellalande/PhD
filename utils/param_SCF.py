@@ -27,6 +27,9 @@ def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
             
             - 'SL12': Swenson and Lawrence, 2012
         https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2012JD018178
+        
+            - 'R01': Roesch et al., 2001
+        https://link.springer.com/article/10.1007/s003820100153
 
         SWE : float, array
             Snow Water Equivalent value(s) [mm or kg/m2].
@@ -44,7 +47,7 @@ def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
         Returns
         -------
         scf : float, array
-            Value(s) of SCF [%].
+            Value(s) of SCF.
 
         Example
         -------
@@ -93,11 +96,16 @@ def scf(param, SWE, rho_snow=100, sigma_topo=0, SWE_max=200):
         
         scf = 1 - ( 1 / np.pi * np.arccos( 2 * SWE / SWE_max - 1 ) )**N_melt
         
+    elif param == 'R01':
+        epsilon = 1e-6        
+        scf = 0.95 * np.tanh(100 * SWE) * np.sqrt(
+            ( SWE ) / ( SWE + epsilon + 0.15 * sigma_topo )
+        )
+        
     else:
         raise ValueError(
             f"Invalid parameterization argument: '{param}'. "
-            "Valid names are: 'NY07', 'NY07_STD', 'SL12'."
+            "Valid names are: 'NY07', 'NY07_STD', 'SL12', 'R01'."
         )
 
-#     return scf * 100
     return scf
