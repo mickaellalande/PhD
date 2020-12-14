@@ -188,7 +188,7 @@ def clim(ds, calendar='standard', season='annual', skipna=False):
         with xr.set_options(keep_attrs=True):
             clim = (seasonal_data * weights) \
                 .sum(dim='time', skipna=skipna) \
-                .assign_coords(month=season)
+                .assign_coords(season=season)
 
     # Add period attribute
     clim.attrs['period'] = str(
