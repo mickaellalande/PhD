@@ -255,7 +255,7 @@ def get_model_names_projections():
         'BCC-CSM2-MR',
         #       'BCC-ESM1',
         #       'CAS-ESM2-0',
-        'CESM2',
+#         'CESM2', # plus disponble...
         #       'CESM2-FV2',
         #       'CESM2-WACCM', # /bdd/CMIP6/ScenarioMIP/NCAR/CESM2-WACCM/\
         # ssp585/r1i1p1f1/Amon/pr/gn/latest/ missing years
@@ -264,7 +264,7 @@ def get_model_names_projections():
         'CNRM-CM6-1-HR',
         'CNRM-ESM2-1',
         'CanESM5',
-        'CanESM5-CanOE',
+#         'CanESM5-CanOE', # Too similar to CanESM5
         #       'GFDL-CM4',
         #       'GISS-E2-1-G',
         #       'GISS-E2-1-H',
