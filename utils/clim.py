@@ -271,7 +271,7 @@ def year_mean(da, calendar='standard', season='annual', skipna=False):
                 weights = xr.DataArray(
                     [
                         value / seasonal_month_length.resample(
-                            time='AS-' + cld.month_abbr[month_start]
+                            time='AS-' + cld.month_abbr[month_start].upper()
                         ).sum().values[i // len(season)]
                         for i, value in enumerate(seasonal_month_length.values)
                     ],
@@ -284,7 +284,7 @@ def year_mean(da, calendar='standard', season='annual', skipna=False):
                 )
 
                 sum_weights = weights.resample(
-                    time='AS-' + cld.month_abbr[month_start]).sum()
+                    time='AS-' + cld.month_abbr[month_start].upper()).sum()
 
                 np.testing.assert_allclose(
                     sum_weights.values, np.ones(
@@ -292,7 +292,7 @@ def year_mean(da, calendar='standard', season='annual', skipna=False):
 
                 with xr.set_options(keep_attrs=True):
                     season_mean = (seasonal_data * weights) \
-                        .resample(time='AS-' + cld.month_abbr[month_start])  \
+                        .resample(time='AS-' + cld.month_abbr[month_start].upper())  \
                         .sum('time', skipna=skipna)
 
                 # To keep same format as the version bellow (be aware that the
