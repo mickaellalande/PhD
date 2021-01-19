@@ -21,7 +21,7 @@ def get_zone(zone):
         zone : str
             Zone name. Options are:
 
-            - 'GLOB', 'global', 'GLOBAL'
+            - 'GLOB', 'global', 'GLOBAL', 'GLOB-land'
             - 'NH' : North Hemisphere
             - 'HMA' : High Mountain of Asia
             - 'NA' : North America
@@ -43,7 +43,7 @@ def get_zone(zone):
     """
 
     # Global
-    if zone in ['GLOB', 'global', 'GLOBAL']:
+    if zone in ['GLOB', 'global', 'GLOBAL', 'GLOB-land']:
         latlim = slice(None)
         lonlim = slice(None)
         
