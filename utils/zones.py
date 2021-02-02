@@ -103,7 +103,7 @@ def plot_zones(ax):
         get_zones()
 
     # HKK
-    ax.text(lonlim_HK.start + 0.5, latlim_HK.stop - 2, 'HKK', zorder=10)
+    ax.text(lonlim_HK.start + 0.5, latlim_HK.stop - 2, 'HK', zorder=10)
     ax.add_patch(
         mpatches.Rectangle(
             xy=[lonlim_HK.start, latlim_HK.start],

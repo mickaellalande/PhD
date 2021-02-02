@@ -221,7 +221,7 @@ def get_model_names():
         'CNRM-CM6-1-HR',
         'CNRM-ESM2-1',
         'CanESM5',
-        'CanESM5-CanOE',
+#         'CanESM5-CanOE', # too close from CanESM5
         #       'EC-Earth3', # Missing some years
         #       'EC-Earth3-Veg', # Missing some years
         #       'EC-Earth3-Veg-LR', # Missing some years
