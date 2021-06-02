@@ -1,7 +1,0 @@
-20210601 154219.677 ERROR            PET0 ESMF_Regrid.F90:366 ESMF_RegridStore Invalid argument  - Internal subroutine call returned Error
-20210601 154219.677 ERROR            PET0 ESMF_FieldRegrid.F90:1415 ESMF_FieldRegridStoreNX Invalid argument  - Internal subroutine call returned Error
-20210601 154219.677 ERROR            PET0 ESMF_Field_C.F90:1261 f_esmf_regridstorefile Invalid argument  - Internal subroutine call returned Error
-20210601 154756.305 ERROR            PET0 ESMF_Regrid.F90:366 ESMF_RegridStore Invalid argument  - Internal subroutine call returned Error
-20210601 154756.307 ERROR            PET0 ESMF_FieldRegrid.F90:1415 ESMF_FieldRegridStoreNX Invalid argument  - Internal subroutine call returned Error
-20210601 154756.307 ERROR            PET0 ESMF_Field_C.F90:1261 f_esmf_regridstorefile Invalid argument  - Internal subroutine call returned Error
-20210601 165503.585 INFO             PET0 Finalizing ESMF
