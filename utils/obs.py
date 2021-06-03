@@ -34,6 +34,10 @@ def get_obs(
             - 'NH_SCE_CDR': NOAA Climate Data Record (CDR) of Northern
             Hemisphere (NH) Snow Cover Extent (SCE), Version 1
             (https://doi.org/10.7289/V5N014G9)
+            
+            - 'NH_SCE_CDR_HR': NOAA Climate Data Record (CDR) of Northern
+            Hemisphere (NH) Snow Cover Extent (SCE), Version 1 at 24 km 
+            (not official; Contact: lawrence.mudryk@canada.ca)
 
             - 'MEaSUREs': MEaSUREs Northern Hemisphere Terrestrial Snow Cover
             Extent Daily 25km EASE-Grid 2.0, Version 1
@@ -55,6 +59,7 @@ def get_obs(
         version, var : str
             Version and variable of the dataset. Options are:
             - NH_SCE_CDR: 'v01r01' / 'snc'
+            - NH_SCE_CDR_HR: 'v01r00' / 'snc'
             - MEaSUREs: 'v01r01' / 'snc'
             - CRU_TS: '4.00', '4.04' / 'tas'
             - APHRO_MA: 'V1101' / 'pr'
@@ -140,6 +145,56 @@ def get_obs(
                 .mean('time', skipna='False', keep_attrs=True)
 
             u.check_period_size(period, obs, ds, frequency='monthly')
+            
+            
+        # NOAA Climate Data Record (CDR) of Northern Hemisphere (NH) Snow Cover
+        # Extent (SCE), Version 1 at 24 km (not official) 
+        # Contact: lawrence.mudryk@canada.ca
+        if obs_name == 'NH_SCE_CDR_HR':
+            if version not in ['v01r00']:
+                raise ValueError(
+                    f"Invalid version argument: '{version}'. "
+                     "Valid version are: 'v01r00'."
+                )
+
+            # Select machine
+            if machine in ['CICLAD']:
+                path = '/data/mlalande/RUTGERS/' \
+                    'G10035-rutgers-nh-24km-weekly-sce-' + version + \
+                    '-19800826-20200831_newer_without_xy.nc'
+            else:
+                raise ValueError(
+                    f"Invalid machine argument: '{machine}'. "
+                     "Valid names are: 'CICLAD'."
+                )
+
+            # Get raw data
+            print('Get observation: ' + obs_name + '\n' + path + '\n')
+            
+            # Select only values with valid lat and lon for regrid
+            # (missing lat/lon values are set to ~9.9e+36)
+            ds = (xr.open_dataset(path)).isel(x=slice(158,867), y=slice(158,867))
+            u.check_first_last_year(period, ds)
+
+            # Get the snc variable, keep only land data and convert to %
+            with xr.set_options(keep_attrs=True):
+                obs = ds.sel(
+                    time=period).snow_cover_extent.where(
+                    ds.land == 1) * 100
+            obs.attrs['units'] = '%'
+            obs.attrs['obs_name'] = obs_name + '_' + version
+            obs.attrs.update(ds.attrs)
+
+            # Rename lon and lat for the regrid
+            obs = obs.rename({'longitude': 'lon', 'latitude': 'lat'})
+
+            # Resamble data per month (from per week)
+            obs = obs \
+                .resample(time='1MS') \
+                .mean('time', skipna='False', keep_attrs=True)
+
+            u.check_period_size(period, obs, ds, frequency='monthly')
+            
 
         # MEaSUREs Northern Hemisphere Terrestrial Snow Cover Extent Daily 25km
         # EASE-Grid 2.0, Version 1 (https://nsidc.org/data/nsidc-0530)
