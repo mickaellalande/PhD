@@ -54,6 +54,24 @@ def get_human_readable_size(num):
 
 def get_divisors(n):
     # https://alexwlchan.net/2019/07/finding-divisors-with-python/
+    """
+        Get all the divisors of a number.
+
+        Parameters
+        ----------
+        n : int
+
+        Example
+        -------
+        >>> import sys
+        >>> sys.path.insert(1, '/home/mlalande/notebooks/utils')
+        >>> import utils as u
+        >>>
+        >>> for i in u.get_divisors(225):
+                print(i)
+
+    """
+    
     for i in range(1, int(n / 2) + 1):
         if n % i == 0:
             yield i
