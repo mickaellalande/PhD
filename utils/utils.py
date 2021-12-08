@@ -179,7 +179,7 @@ def spatial_average(da):
             other_dims_str.append(dim)
 
     # Compute the weights
-    coslat = np.cos(np.deg2rad(da.lat)).where(~da.isnull())
+    coslat = np.cos(np.deg2rad(da[lat_str])).where(~da.isnull())
     weights = coslat / coslat.sum(dim=(lat_str, lon_str))
 
     # Test that the sum of weights equal 1
