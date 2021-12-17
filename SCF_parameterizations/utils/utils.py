@@ -190,15 +190,15 @@ def spatial_average(da):
     lon_str = ''
     other_dims_str = []
     for dim in da.dims:
-        if dim in ['lat', 'latitude']:
+        if dim in ['lat', 'latitude', 'Latitude']:
             lat_str = dim
-        elif dim in ['lon', 'longitude']:
+        elif dim in ['lon', 'longitude', 'Longitude']:
             lon_str = dim
         else:
             other_dims_str.append(dim)
 
     # Compute the weights
-    coslat = np.cos(np.deg2rad(da.lat)).where(~da.isnull())
+    coslat = np.cos(np.deg2rad(da[lat_str])).where(~da.isnull())
     weights = coslat / coslat.sum(dim=(lat_str, lon_str))
 
     # Test that the sum of weights equal 1
