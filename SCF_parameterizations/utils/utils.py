@@ -239,3 +239,34 @@ def cyclic_dataarray(da, coord='lon'):
             new_da.coords[c].attrs[att] = da.coords[c].attrs[att]
 
     return new_da
+
+
+# =============================================================================
+# Weighted metrics
+# =============================================================================
+def weighted_mean(x, w):
+    """Weighted Mean"""
+    return np.sum(x * w) / np.sum(w)
+
+def weighted_cov(x, y, w):
+    """Weighted Covariance"""
+    return np.sum(w * (x - weighted_mean(x, w)) * (y - weighted_mean(y, w))) / np.sum(w)
+
+def weighted_corr(x, y, w):
+    """Weighted Correlation"""
+    return weighted_cov(x, y, w) / np.sqrt(weighted_cov(x, x, w) * weighted_cov(y, y, w))
+
+def weighted_std(x, w):
+    """Weighted Standard Deviation"""
+    return np.sqrt(weighted_cov(x, x, w))
+
+def weighted_rmse(x, y, w):
+    """Weighted Standard Deviation"""
+    return np.sqrt(np.sum(w * (x - y)**2 / np.sum(w)))
+
+def weighted_crmse(x, y, w):
+    """Weighted Standard Deviation"""
+    xc = x - weighted_mean(x, w)
+    yc = y - weighted_mean(y, w)
+    
+    return np.sqrt(np.sum(w * (xc - yc)**2 / np.sum(w)))

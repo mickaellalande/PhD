@@ -76,13 +76,13 @@ def get_dpm(time, calendar='standard'):
 
 
 # Custom seasonal climatology (on monthly data set, include just month)
-def clim(ds, calendar='standard', season='annual', skipna=False):
+def clim(ds, calendar='standard', season='annual', freq='M', skipna=False):
     """
         Compute the climatology from monthly data by taking into account the
-        number of days in each month. For seasonal climatology, compute all the
-        months without removing any data (e.g. for 'DJF' it will take into
-        account the first D and last JF). The time dimension needs to be named
-        'time'.
+        number of days in each month and daily data. For seasonal climatology, 
+        compute all the months without removing any data (e.g. for 'DJF' it will 
+        take into account the first D and last JF). The time dimension needs to 
+        be named 'time'.
 
         Parameters
         ----------
@@ -109,6 +109,12 @@ def clim(ds, calendar='standard', season='annual', skipna=False):
             - 'annual'
             - single month: int (ex: 1 for January, 2 for February, etc.)
             - any character string (ex: 'DJF', 'JJAS', etc.)
+            
+        freq : str, optional
+            Frequency of data. Default is 'M'. Options are:
+            
+            - 'M': monthly
+            - 'D': daily
 
         skipna : bool, optional
             Whether to skip missing values when aggregating. Default to False
@@ -131,22 +137,35 @@ def clim(ds, calendar='standard', season='annual', skipna=False):
         >>> clim = u.clim(da, season='annual', calendar='360_day')
 
     """
-
-    # Get month lenght
-    month_length = xr.DataArray(
-        get_dpm(ds.time.to_index(), calendar=calendar),
-        coords=[ds.time],
-        name='month_length'
-    )
+    
+    if freq in ['M', 'mon', 'monthly', 'Monthly']:
+        # Get month lenght
+        month_length = xr.DataArray(
+            get_dpm(ds.time.to_index(), calendar=calendar),
+            coords=[ds.time],
+            name='month_length'
+        )
 
     # Annual case
     if season in ['annual', 'Annual']:
-        weights = month_length / month_length.sum()
-        np.testing.assert_allclose(weights.sum().values, np.ones(1))
-        with xr.set_options(keep_attrs=True):
-            clim = (ds * weights) \
-                .sum(dim='time', skipna=skipna) \
-                .assign_coords(season=season)
+        if freq in ['M', 'mon', 'monthly', 'Monthly']:
+            weights = month_length / month_length.sum()
+            np.testing.assert_allclose(weights.sum().values, np.ones(1))
+            with xr.set_options(keep_attrs=True):
+                clim = (ds * weights) \
+                    .sum(dim='time', skipna=skipna) \
+                    .assign_coords(season=season)
+                
+        elif freq in ['D', 'day', 'daily', 'Daily']:
+            clim = ds.mean('time', skipna=skipna).assign_coords(season=season)
+        
+        else:
+            raise ValueError(
+                f"""Invalid frequence argument: '{freq}'. Valid values are:
+                - 'M': monthly
+                - 'D': daily
+                """
+            )
 
     # Season case:
     # - single month: int (ex: 1 for January, 2 for February, etc.)
@@ -178,16 +197,22 @@ def clim(ds, calendar='standard', season='annual', skipna=False):
             )
 
         seasonal_data = ds.sel(time=season_sel)
-        weights = month_length \
-            .sel(time=season_sel) / month_length.astype(float) \
-            .sel(time=season_sel) \
-            .sum()
+        
+        if freq in ['M', 'mon', 'monthly', 'Monthly']:
+            weights = month_length \
+                .sel(time=season_sel) / month_length.astype(float) \
+                .sel(time=season_sel) \
+                .sum()
 
-        np.testing.assert_allclose(weights.sum().values, np.ones(1))
+            np.testing.assert_allclose(weights.sum().values, np.ones(1))
 
-        with xr.set_options(keep_attrs=True):
-            clim = (seasonal_data * weights) \
-                .sum(dim='time', skipna=skipna) \
+            with xr.set_options(keep_attrs=True):
+                clim = (seasonal_data * weights) \
+                    .sum(dim='time', skipna=skipna) \
+                    .assign_coords(season=season)
+                
+        elif freq in ['D', 'day', 'daily', 'Daily']:
+            clim = seasonal_data.mean('time', skipna=skipna) \
                 .assign_coords(season=season)
 
     # Add period attribute
