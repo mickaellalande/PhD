@@ -88,18 +88,20 @@ def get_domain_HMA():
 # HM: Central and Est Himalaya
 # TB: Tibetan Plateau
 def get_zones():
-    lonlim_HK = slice(70, 81)
+    lonlim_TS = slice(68, 96)
+    latlim_TS = slice(40, 45)
+    lonlim_HK = slice(68, 80)
     latlim_HK = slice(31, 40)
-    lonlim_HM = slice(79, 98)
+    lonlim_TP = slice(80, 105)
+    latlim_TP = slice(31, 40)
+    lonlim_HM = slice(77, 104)
     latlim_HM = slice(26, 31)
-    lonlim_TP = slice(81, 104)
-    latlim_TP = slice(31, 39)
 
-    return lonlim_HK, latlim_HK, lonlim_HM, latlim_HM, lonlim_TP, latlim_TP
+    return lonlim_TS, latlim_TS, lonlim_HK, latlim_HK, lonlim_TP, latlim_TP, lonlim_HM, latlim_HM
 
 
 def plot_zones(ax):
-    lonlim_HK, latlim_HK, lonlim_HM, latlim_HM, lonlim_TP, latlim_TP = \
+    lonlim_TS, latlim_TS, lonlim_HK, latlim_HK, lonlim_TP, latlim_TP, lonlim_HM, latlim_HM = \
         get_zones()
 
     # HKK
@@ -135,6 +137,20 @@ def plot_zones(ax):
             xy=[lonlim_TP.start, latlim_TP.start],
             width=lonlim_TP.stop - lonlim_TP.start,
             height=latlim_TP.stop - latlim_TP.start,
+            transform=ccrs.PlateCarree(),
+            fill=False,
+            zorder=10
+        )
+    )
+    
+    
+    # TS
+    ax.text(lonlim_TS.start + 0.5, latlim_TS.stop - 2, 'TS', zorder=10)
+    ax.add_patch(
+        mpatches.Rectangle(
+            xy=[lonlim_TS.start, latlim_TS.start],
+            width=lonlim_TS.stop - lonlim_TS.start,
+            height=latlim_TS.stop - latlim_TS.start,
             transform=ccrs.PlateCarree(),
             fill=False,
             zorder=10
