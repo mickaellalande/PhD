@@ -158,3 +158,19 @@ def plot_zones(ax):
     )
 
     return None
+
+def plot_gridcell(ax, lat, lon, color):
+
+    ax.add_patch(
+        mpatches.Rectangle(
+            xy=[lon.start, lat.start],
+            width=lon.stop - lon.start,
+            height=lat.stop - lat.start,
+            transform=ccrs.PlateCarree(),
+            fill=False,
+            zorder=10,
+            color=color
+        )
+    )
+
+    return None
