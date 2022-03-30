@@ -16,6 +16,7 @@ from cartopy.util import add_cyclic_point
 # Personnal functions
 from clim import *  # makes weighted montlhy computations
 from zones import *  # make zones
+from plots import *  # make zones
 
 
 # =============================================================================
