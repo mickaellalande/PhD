@@ -8,8 +8,8 @@ path_to_exp="IGCM_OUT/LMDZOR/DEVT/amip"
 exp="LMDZORnudge-STD-NY07"
 period="20040101_20131231"
 
-path=$STORE"/"$path_to_exp"/"$exp
+path="$STORE/$path_to_exp/$exp"
 
-echo $path
+echo "$path"
 
-mfthredds $path_to_exp"/"exp"/ATM/Analyse/TS_MO" $path"/ATM/Analyse/TS_MO/"$exp"_"$period"_1M_t2m.nc"
+mfthredds -d "$path_to_exp/$exp/ATM/Analyse/TS_MO" "$path/ATM/Analyse/TS_MO/${exp}_${period}_1M_t2m.nc"
