@@ -69,7 +69,7 @@ def get_obs(
             Time period (ex: slice('1979','2014')). Default is no slicing.
 
         machine : str, optional
-            Machine name. Default is CICLAD. Options are: 'CICLAD'.
+            Machine name. Default is CICLAD. Options are: 'CICLAD, ClimServ'.
 
         regrid : DataArray, Dataset, optional
             Data towards which the observation will be regrided. Default does
@@ -263,11 +263,6 @@ def get_obs(
                 keep_attrs=True)
             u.check_period_size(period, obs, ds, frequency='monthly')
 
-        else:
-            raise ValueError(
-                f"Invalid obs_name argument: '{obs_name}'. "
-                 "Valid names are: 'NOAA-CDR-v1'."
-            )
 
     #################
     # Precipitation #
