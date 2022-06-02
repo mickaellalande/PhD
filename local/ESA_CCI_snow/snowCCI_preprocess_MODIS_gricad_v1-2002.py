@@ -1,10 +1,10 @@
 import xarray as xr
 import pandas as pd
 import numpy as np
+import time
 
 # For parallelisation
 from dask.distributed import Client
-client = Client(n_workers=16, threads_per_worker=1, memory_limit='300GB')
 
 path_snow_CCI = 'ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg'
 path_AVHRR = path_snow_CCI+'/AVHRR_MERGED/v2.0'
@@ -194,212 +194,213 @@ def concat_files(da1, da2, concat_string):
     return concat  
 
 
+if __name__ == "__main__":
+    client = Client(n_workers=16, threads_per_worker=1, memory_limit='300GB')
+    
+    #########################
+    ### Run interpolation ###
+    #########################
 
-#########################
-### Run interpolation ###
-#########################
-import time
+    chunk_lat = 4500
+    chunk_lon = 9000
+    delta_interp = 10 # maximum gap number of days for interpolation
+    latlon_round = 3 # precision for lat/lon
+    common_file_string = '-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc'
+    var = 'scfg'
 
-chunk_lat = 4500
-chunk_lon = 9000
-delta_interp = 10 # maximum gap number of days for interpolation
-latlon_round = 3 # precision for lat/lon
-common_file_string = '-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc'
-var = 'scfg'
+    # for year in [str(y) for y in range(2000, 2021)]:
+    for year in [str(y) for y in range(year_start, year_end)]:
+        for month in [str(m).zfill(2) for m in range(1, 13)]:
+    #     for month in [str(m).zfill(2) for m in range(12, 13)]:
+            start_time = time.time() # Check time per loop
 
-# for year in [str(y) for y in range(2000, 2021)]:
-for year in [str(y) for y in range(year_start, year_end)]:
-    for month in [str(m).zfill(2) for m in range(1, 13)]:
-#     for month in [str(m).zfill(2) for m in range(12, 13)]:
-        start_time = time.time() # Check time per loop
-        
-        # Get previous and next months for interpolation         
-        month_prev, year_prev = get_prev_month_year(month, year)
-        month_next, year_next = get_next_month_year(month, year)
-        print('\n### '+year+'-'+month+' (prev: '+year_prev+'-'+month_prev+' / next: '+year_next+'-'+month_next+')')
-        
-        ##################
-        ### Open files ###
-        ##################
-        # Test if there are files (ex: 1994-11 to 1995-01 no files for AVHRR)
-        try:
-            da, attrs = open_files(path_MODIS, year, month, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
-        except OSError:
-            print_no_file(path_MODIS, year, month)
-            continue # If there is no file, go to next iteration
-        
-        # Prev
-        try:
-            da_prev, _ = open_files(path_MODIS, year_prev, month_prev, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
-            da_prev = select_last_days(da_prev, year_prev, month_prev, delta_interp)
-            concat = concat_files(da_prev, da, '[prev, current]')
-            
-            # Next
+            # Get previous and next months for interpolation         
+            month_prev, year_prev = get_prev_month_year(month, year)
+            month_next, year_next = get_next_month_year(month, year)
+            print('\n### '+year+'-'+month+' (prev: '+year_prev+'-'+month_prev+' / next: '+year_next+'-'+month_next+')')
+
+            ##################
+            ### Open files ###
+            ##################
+            # Test if there are files (ex: 1994-11 to 1995-01 no files for AVHRR)
             try:
-                da_next, _ = open_files(path_MODIS, year_next, month_next, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
-                da_next = select_first_days(da_next, year_next, month_next, delta_interp)
-                concat = concat_files(concat, da_next, '[concat, next]')
+                da, attrs = open_files(path_MODIS, year, month, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
             except OSError:
-                print_no_file(path_MODIS, year_next, month_next)
+                print_no_file(path_MODIS, year, month)
+                continue # If there is no file, go to next iteration
 
-        except OSError:
-            print_no_file(path_MODIS, year_prev, month_prev)
-        
-            # Next
+            # Prev
             try:
-                da_next, _ = open_files(path_MODIS, year_next, month_next, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
-                da_next = select_first_days(da_next, year_next, month_next, delta_interp)
-                concat = concat_files(da, da_next, '[current, next]')
+                da_prev, _ = open_files(path_MODIS, year_prev, month_prev, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
+                da_prev = select_last_days(da_prev, year_prev, month_prev, delta_interp)
+                concat = concat_files(da_prev, da, '[prev, current]')
+
+                # Next
+                try:
+                    da_next, _ = open_files(path_MODIS, year_next, month_next, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
+                    da_next = select_first_days(da_next, year_next, month_next, delta_interp)
+                    concat = concat_files(concat, da_next, '[concat, next]')
+                except OSError:
+                    print_no_file(path_MODIS, year_next, month_next)
+
             except OSError:
-                print_no_file(path_MODIS, year_next, month_next)
-                concat = da.chunk({'time': -1})
+                print_no_file(path_MODIS, year_prev, month_prev)
 
-        ###############################################
-        ### Get SCF values and, water and ice masks ###
-        ###############################################
-        scf = concat.where(concat <= 100)
-        water = concat.where(concat == 210)
-        ice = concat.where(concat == 215)
-        
-        ###############################
-        ### Linear temporal gapfill ###
-        ###############################
-        scf_interp = scf.interpolate_na('time', method='linear', max_gap=pd.Timedelta(days=delta_interp))
-        print(' => Doing interpolation...')
+                # Next
+                try:
+                    da_next, _ = open_files(path_MODIS, year_next, month_next, common_file_string, chunk_lat, chunk_lon, latlon_round, var)
+                    da_next = select_first_days(da_next, year_next, month_next, delta_interp)
+                    concat = concat_files(da, da_next, '[current, next]')
+                except OSError:
+                    print_no_file(path_MODIS, year_next, month_next)
+                    concat = da.chunk({'time': -1})
 
-        # Deal with attributes
-        scf_interp.name = var+'_interp'
-        del scf_interp.attrs['valid_range']
-        del scf_interp.attrs['flag_values']
-        del scf_interp.attrs['flag_meanings']
-        scf_interp.attrs['ancillary_variables'] = 'coverage, coverage_interp'
-        scf_interp.attrs['method'] = var+".interpolate_na('time', method='linear', max_gap=pd.Timedelta(days=10))"
+            ###############################################
+            ### Get SCF values and, water and ice masks ###
+            ###############################################
+            scf = concat.where(concat <= 100)
+            water = concat.where(concat == 210)
+            ice = concat.where(concat == 215)
 
-        # Compute time coverage
-        coverage = scf.sel(time=year+'-'+month).count('time')
-        coverage.name = 'coverage'
-        coverage.attrs['long_name'] = 'Time Coverage'
-        coverage.attrs['units'] = 'number of days'
-        coverage.attrs['ancillary_variables'] = var
+            ###############################
+            ### Linear temporal gapfill ###
+            ###############################
+            scf_interp = scf.interpolate_na('time', method='linear', max_gap=pd.Timedelta(days=delta_interp))
+            print(' => Doing interpolation...')
 
-        coverage_interp = scf_interp.sel(time=year+'-'+month).count('time')
-        coverage_interp.name = 'coverage_interp'
-        coverage_interp.attrs['long_name'] = 'Time Coverage'
-        coverage_interp.attrs['units'] = 'number of days'
-        coverage_interp.attrs['ancillary_variables'] = var+'_interp'
+            # Deal with attributes
+            scf_interp.name = var+'_interp'
+            del scf_interp.attrs['valid_range']
+            del scf_interp.attrs['flag_values']
+            del scf_interp.attrs['flag_meanings']
+            scf_interp.attrs['ancillary_variables'] = 'coverage, coverage_interp'
+            scf_interp.attrs['method'] = var+".interpolate_na('time', method='linear', max_gap=pd.Timedelta(days=10))"
 
-        ice.name = 'mask_ice'
-        ice.attrs['long_name'] = 'Permanent_Snow_and_Ice'
-        del ice.attrs['units']
-        del ice.attrs['standard_name']
-        del ice.attrs['valid_range']
-        del ice.attrs['actual_range']
-        ice.attrs['flag_value'] = 215
-        del ice.attrs['flag_values']
-        del ice.attrs['flag_meanings']
-        del ice.attrs['grid_mapping']
-        del ice.attrs['ancillary_variables']
+            # Compute time coverage
+            coverage = scf.sel(time=year+'-'+month).count('time')
+            coverage.name = 'coverage'
+            coverage.attrs['long_name'] = 'Time Coverage'
+            coverage.attrs['units'] = 'number of days'
+            coverage.attrs['ancillary_variables'] = var
 
-        water.name = 'mask_water'
-        water.attrs['long_name'] = 'Water'
-        del water.attrs['units']
-        del water.attrs['standard_name']
-        del water.attrs['valid_range']
-        del water.attrs['actual_range']
-        water.attrs['flag_value'] = 210
-        del water.attrs['flag_values']
-        del water.attrs['flag_meanings']
-        del water.attrs['grid_mapping']
-        del water.attrs['ancillary_variables']
+            coverage_interp = scf_interp.sel(time=year+'-'+month).count('time')
+            coverage_interp.name = 'coverage_interp'
+            coverage_interp.attrs['long_name'] = 'Time Coverage'
+            coverage_interp.attrs['units'] = 'number of days'
+            coverage_interp.attrs['ancillary_variables'] = var+'_interp'
 
-        # Combine in a new dataset
-        ds_interp = scf_interp.sel(time=year+'-'+month).to_dataset()
-        ds_interp['coverage'] = coverage
-        ds_interp['coverage_interp'] = coverage_interp
-        ds_interp['mask_ice'] = ice[0]
-        ds_interp['mask_water'] = water[0]
-        ds_interp.attrs = {**{'processed': 'A linear interpolation on the time dimension is performed in this dataset. ' \
-            'A maximum window of 10 days is imposed, if the gap is more than 10 days, the missing values are kept. ' \
-            'Before interpolation the time dimension is reindexed in order to cover all days of the month, and fill missing days with NaNs.' \
-            'Also the latitudes and longitudes are rounded to 3 digits after de decimal to avoid concatenation errors.' \
-            'The temporal coverage of the data before and after interpolation is stored in the variables "coverage" and "coverage_interp". ' \
-            'The permanent snow and ice, and water masks are also kept for later processing if needed. The original dataset is described below. ' \
-            'Preprocess performed by Mickaël Lalande (https://mickaellalande.github.io/) on May 13, 2022. ' \
-            'The same compression level is kept compared to the original dataset (zlib=True, complevel=4).'}, **attrs}
+            ice.name = 'mask_ice'
+            ice.attrs['long_name'] = 'Permanent_Snow_and_Ice'
+            del ice.attrs['units']
+            del ice.attrs['standard_name']
+            del ice.attrs['valid_range']
+            del ice.attrs['actual_range']
+            ice.attrs['flag_value'] = 215
+            del ice.attrs['flag_values']
+            del ice.attrs['flag_meanings']
+            del ice.attrs['grid_mapping']
+            del ice.attrs['ancillary_variables']
 
-        # Compression
-        comp = dict(zlib=True, complevel=4)
-        encoding = {var: comp for var in ds_interp.data_vars}
-        ds_interp.to_netcdf(path_out_MODIS+'/daily/'+year+'/'+year+month+'-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', encoding=encoding)
-        print('Interpolated file saved to '+path_out_MODIS+'/daily/'+year+'/'+year+month+'-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
-        print("--- %s seconds ---" % (time.time() - start_time))
-        
-        
-#########################
-### Make monthly mean ###
-#########################
-root_path_in = '/bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily'
-root_path_out = '/bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly'
+            water.name = 'mask_water'
+            water.attrs['long_name'] = 'Water'
+            del water.attrs['units']
+            del water.attrs['standard_name']
+            del water.attrs['valid_range']
+            del water.attrs['actual_range']
+            water.attrs['flag_value'] = 210
+            del water.attrs['flag_values']
+            del water.attrs['flag_meanings']
+            del water.attrs['grid_mapping']
+            del water.attrs['ancillary_variables']
 
-chunk_lat = 4500
-chunk_lon = 9000
+            # Combine in a new dataset
+            ds_interp = scf_interp.sel(time=year+'-'+month).to_dataset()
+            ds_interp['coverage'] = coverage
+            ds_interp['coverage_interp'] = coverage_interp
+            ds_interp['mask_ice'] = ice[0]
+            ds_interp['mask_water'] = water[0]
+            ds_interp.attrs = {**{'processed': 'A linear interpolation on the time dimension is performed in this dataset. ' \
+                'A maximum window of 10 days is imposed, if the gap is more than 10 days, the missing values are kept. ' \
+                'Before interpolation the time dimension is reindexed in order to cover all days of the month, and fill missing days with NaNs.' \
+                'Also the latitudes and longitudes are rounded to 3 digits after de decimal to avoid concatenation errors.' \
+                'The temporal coverage of the data before and after interpolation is stored in the variables "coverage" and "coverage_interp". ' \
+                'The permanent snow and ice, and water masks are also kept for later processing if needed. The original dataset is described below. ' \
+                'Preprocess performed by Mickaël Lalande (https://mickaellalande.github.io/) on May 13, 2022. ' \
+                'The same compression level is kept compared to the original dataset (zlib=True, complevel=4).'}, **attrs}
 
-# for year in [str(y) for y in range(2000, 2021)]:
-for year in [str(y) for y in range(year_start, year_end)]:
-    start_time = time.time() # Check time per loop
-    
-    print('\n### '+year)
-    
-    ds = xr.open_mfdataset(root_path_in+'/'+year+'/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', parallel=True, chunks={'lat': chunk_lat, 'lon': chunk_lon})
-    print('Read files '+root_path_in+'/'+year+'/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
-    
-#     ds_month = ds.chunk({'time': -1}).resample(time='1M').mean() # too heavy
-    ds_month = ds.resample(time='1M').mean()
-    print(' => Perform monthly resample average...')
-    
-    ds_month.attrs = ds.attrs
-    
-     # Compression
-    comp = dict(zlib=True, complevel=4)
-    encoding = {var: comp for var in ds_month.data_vars}
-    ds_month.to_netcdf(root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', encoding=encoding)
-    print('Monthly file saved to '+root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
-    print("--- %s seconds ---" % (time.time() - start_time))
-    
-    
-    
-############################
-### Make spatial average ###
-############################
-res_orig = 0.01
+            # Compression
+            comp = dict(zlib=True, complevel=4)
+            encoding = {var: comp for var in ds_interp.data_vars}
+            ds_interp.to_netcdf(path_out_MODIS+'/daily/'+year+'/'+year+month+'-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', encoding=encoding)
+            print('Interpolated file saved to '+path_out_MODIS+'/daily/'+year+'/'+year+month+'-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
+            print("--- %s seconds ---" % (time.time() - start_time))
 
-# for year in [str(y) for y in range(2000, 2021)]:
-for year in [str(y) for y in range(year_start, year_end)]:
-    
-    print('\n### '+year)
-    
-    ds = xr.open_dataset(root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', chunks={'time': 1})
-    print('Read files '+root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
-    
-    for res in [0.1, 0.25, 0.5, 1]:
+
+    #########################
+    ### Make monthly mean ###
+    #########################
+    root_path_in = '/bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily'
+    root_path_out = '/bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly'
+
+    chunk_lat = 4500
+    chunk_lon = 9000
+
+    # for year in [str(y) for y in range(2000, 2021)]:
+    for year in [str(y) for y in range(year_start, year_end)]:
         start_time = time.time() # Check time per loop
-        print(res)
-        n_coarse = int(res/res_orig)
-        da_coarse = ds.scfg_interp.coarsen(lat=n_coarse, lon=n_coarse).mean()
-        da_coarse.name = 'scfg_interp_'+str(res)+'deg'
 
-        da_coarse_icefilled = ds.scfg_interp.where(ds.mask_ice != 215, 100).coarsen(lat=n_coarse, lon=n_coarse).mean()
-        da_coarse_icefilled.name = 'scfg_interp_'+str(res)+'deg_icefilled'
+        print('\n### '+year)
 
-        ds_coarse = da_coarse.to_dataset()
-        ds_coarse['scfg_interp_'+str(res)+'deg_icefilled'] = da_coarse_icefilled
-        ds_coarse.attrs = ds.attrs
+        ds = xr.open_mfdataset(root_path_in+'/'+year+'/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', parallel=True, chunks={'lat': chunk_lat, 'lon': chunk_lon})
+        print('Read files '+root_path_in+'/'+year+'/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
 
-        print(' => Coarsen dataset to '+str(res)+'deg...')
+    #     ds_month = ds.chunk({'time': -1}).resample(time='1M').mean() # too heavy
+        ds_month = ds.resample(time='1M').mean()
+        print(' => Perform monthly resample average...')
+
+        ds_month.attrs = ds.attrs
 
          # Compression
         comp = dict(zlib=True, complevel=4)
-        encoding = {var: comp for var in ds_coarse.data_vars}
-        ds_coarse.to_netcdf(root_path_out+'_'+str(res)+'deg/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_'+str(res)+'deg.nc', encoding=encoding)
-        print('Monthly file saved to '+root_path_out+'_'+str(res)+'deg/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_'+str(res)+'deg.nc')
+        encoding = {var: comp for var in ds_month.data_vars}
+        ds_month.to_netcdf(root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', encoding=encoding)
+        print('Monthly file saved to '+root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
         print("--- %s seconds ---" % (time.time() - start_time))
+
+
+
+    ############################
+    ### Make spatial average ###
+    ############################
+    res_orig = 0.01
+
+    # for year in [str(y) for y in range(2000, 2021)]:
+    for year in [str(y) for y in range(year_start, year_end)]:
+
+        print('\n### '+year)
+
+        ds = xr.open_dataset(root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', chunks={'time': 1})
+        print('Read files '+root_path_out+'/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc')
+
+        for res in [0.1, 0.25, 0.5, 1]:
+            start_time = time.time() # Check time per loop
+            print(res)
+            n_coarse = int(res/res_orig)
+            da_coarse = ds.scfg_interp.coarsen(lat=n_coarse, lon=n_coarse).mean()
+            da_coarse.name = 'scfg_interp_'+str(res)+'deg'
+
+            da_coarse_icefilled = ds.scfg_interp.where(ds.mask_ice != 215, 100).coarsen(lat=n_coarse, lon=n_coarse).mean()
+            da_coarse_icefilled.name = 'scfg_interp_'+str(res)+'deg_icefilled'
+
+            ds_coarse = da_coarse.to_dataset()
+            ds_coarse['scfg_interp_'+str(res)+'deg_icefilled'] = da_coarse_icefilled
+            ds_coarse.attrs = ds.attrs
+
+            print(' => Coarsen dataset to '+str(res)+'deg...')
+
+             # Compression
+            comp = dict(zlib=True, complevel=4)
+            encoding = {var: comp for var in ds_coarse.data_vars}
+            ds_coarse.to_netcdf(root_path_out+'_'+str(res)+'deg/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_'+str(res)+'deg.nc', encoding=encoding)
+            print('Monthly file saved to '+root_path_out+'_'+str(res)+'deg/'+year+'-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_'+str(res)+'deg.nc')
+            print("--- %s seconds ---" % (time.time() - start_time))
