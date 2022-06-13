@@ -1,0 +1,45 @@
+
+### 2010-11 (prev: 2010-10 / next: 2010-12)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2010/11/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2010/10/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2010/12/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2010/201011-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2008.9551136493683 seconds ---
+
+### 2010-12 (prev: 2010-11 / next: 2011-01)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2010/12/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2010/11/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2011/01/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2010/201012-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2070.87393784523 seconds ---
+
+### 2010
+Read files /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2010/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+ => Perform monthly resample average...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly/2010-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2142.986036300659 seconds ---
+
+### 2010
+Read files /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly/2010-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+0.1
+ => Coarsen dataset to 0.1deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_0.1deg/2010-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_0.1deg.nc
+--- 68.26658511161804 seconds ---
+0.25
+ => Coarsen dataset to 0.25deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_0.25deg/2010-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_0.25deg.nc
+--- 51.71722197532654 seconds ---
+0.5
+ => Coarsen dataset to 0.5deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_0.5deg/2010-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_0.5deg.nc
+--- 47.10850524902344 seconds ---
+1
+ => Coarsen dataset to 1deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_1deg/2010-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_1deg.nc
+--- 47.37274742126465 seconds ---

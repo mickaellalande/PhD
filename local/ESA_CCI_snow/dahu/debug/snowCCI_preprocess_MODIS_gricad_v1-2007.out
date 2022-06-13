@@ -1,0 +1,145 @@
+
+### 2007-01 (prev: 2006-12 / next: 2007-02)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/01/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2006/12/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/02/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200701-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2018.1409130096436 seconds ---
+
+### 2007-02 (prev: 2007-01 / next: 2007-03)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/02/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/01/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/03/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200702-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 1958.1283526420593 seconds ---
+
+### 2007-03 (prev: 2007-02 / next: 2007-04)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/03/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/02/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/04/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200703-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2031.2635629177094 seconds ---
+
+### 2007-04 (prev: 2007-03 / next: 2007-05)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/04/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/03/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/05/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200704-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 1965.840386390686 seconds ---
+
+### 2007-05 (prev: 2007-04 / next: 2007-06)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/05/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/04/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/06/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200705-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2023.5357599258423 seconds ---
+
+### 2007-06 (prev: 2007-05 / next: 2007-07)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/06/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/05/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/07/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200706-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 1941.5695836544037 seconds ---
+
+### 2007-07 (prev: 2007-06 / next: 2007-08)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/07/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/06/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/08/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200707-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2405.1477160453796 seconds ---
+
+### 2007-08 (prev: 2007-07 / next: 2007-09)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/08/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/07/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/09/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200708-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 1987.8694906234741 seconds ---
+
+### 2007-09 (prev: 2007-08 / next: 2007-10)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/09/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/08/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/10/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200709-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 1981.0580713748932 seconds ---
+
+### 2007-10 (prev: 2007-09 / next: 2007-11)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/10/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/09/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/11/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200710-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2054.12930727005 seconds ---
+
+### 2007-11 (prev: 2007-10 / next: 2007-12)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/11/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/10/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/12/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200711-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 1977.6549408435822 seconds ---
+
+### 2007-12 (prev: 2007-11 / next: 2008-01)
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/12/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2007/11/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [prev, current]
+Read files ESA_CCI_SNOW/dap.ceda.ac.uk/neodc/esacci/snow/data/scfg/MODIS/v2.0/2008/01/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0.nc
+ => Concatenate files [concat, next]
+ => Doing interpolation...
+Interpolated file saved to ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/200712-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2036.3942534923553 seconds ---
+
+### 2007
+Read files /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/daily/2007/*-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+ => Perform monthly resample average...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly/2007-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+--- 2055.0079832077026 seconds ---
+
+### 2007
+Read files /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly/2007-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc
+0.1
+ => Coarsen dataset to 0.1deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_0.1deg/2007-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_0.1deg.nc
+--- 64.14073395729065 seconds ---
+0.25
+ => Coarsen dataset to 0.25deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_0.25deg/2007-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_0.25deg.nc
+--- 48.225510120391846 seconds ---
+0.5
+ => Coarsen dataset to 0.5deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_0.5deg/2007-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_0.5deg.nc
+--- 46.02451467514038 seconds ---
+1
+ => Coarsen dataset to 1deg...
+Monthly file saved to /bettik/lalandmi/phd/ESA_CCI_SNOW/preprocess/scfg/MODIS/v2.0/monthly_1deg/2007-monthly-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp_1deg.nc
+--- 43.65177297592163 seconds ---

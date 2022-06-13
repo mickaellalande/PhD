@@ -1,0 +1,146 @@
+/home/lalandmi/.bashrc: line 136: work: command not found
+/home/lalandmi/.bashrc: line 136: work: command not found
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/numpy_compat.py:40: RuntimeWarning: invalid value encountered in true_divide
+  x = np.divide(x1, x2, out)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'Client._close' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'Client._close' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'Client._close' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'Client._close' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/profile.py:264: RuntimeWarning: coroutine 'Client._close' was never awaited
+  frame = sys._current_frames()[thread_id]
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/profile.py:264: RuntimeWarning: coroutine 'Client._close' was never awaited
+  frame = sys._current_frames()[thread_id]
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/profile.py:264: RuntimeWarning: coroutine 'Client._close' was never awaited
+  frame = sys._current_frames()[thread_id]
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/profile.py:264: RuntimeWarning: coroutine 'Client._close' was never awaited
+  frame = sys._current_frames()[thread_id]
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py:4794: RuntimeWarning: coroutine 'wait_for' was never awaited
+  c.close(timeout=2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/profile.py:264: RuntimeWarning: coroutine 'Client._close' was never awaited
+  frame = sys._current_frames()[thread_id]
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/profile.py:264: RuntimeWarning: coroutine 'Client._close' was never awaited
+  frame = sys._current_frames()[thread_id]
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/core/common.py:1123: FutureWarning: 'base' in .resample() and in Grouper() is deprecated.
+The new arguments that you should use are 'offset' or 'origin'.
+
+>>> df.resample(freq="3s", base=2)
+
+becomes:
+
+>>> df.resample(freq="3s", offset="2s")
+
+  grouper = pd.Grouper(

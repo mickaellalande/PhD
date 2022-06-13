@@ -1,0 +1,113 @@
+/home/lalandmi/.bashrc: line 136: work: command not found
+/home/lalandmi/.bashrc: line 136: work: command not found
+distributed.worker - ERROR - failed during get data with tcp://127.0.0.1:45919 -> tcp://127.0.0.1:45539
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 246, in write
+    await future
+tornado.iostream.StreamClosedError: Stream is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 1284, in get_data
+    compressed = await comm.write(msg, serializers=serializers)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 250, in write
+    convert_stream_closed_error(self, e)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 121, in convert_stream_closed_error
+    raise CommClosedError("in %s: %s: %s" % (obj, exc.__class__.__name__, exc))
+distributed.comm.core.CommClosedError: in <closed TCP>: TimeoutError: [Errno 110] Connection timed out
+distributed.worker - ERROR - Worker stream died during communication: tcp://127.0.0.1:45919
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 193, in read
+    n = await stream.read_into(frame)
+tornado.iostream.StreamClosedError: Stream is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 1982, in gather_dep
+    response = await get_data_from_worker(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 3258, in get_data_from_worker
+    return await retry_operation(_get_data, operation="get_data_from_worker")
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/utils_comm.py", line 385, in retry_operation
+    return await retry(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/utils_comm.py", line 370, in retry
+    return await coro()
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 3238, in _get_data
+    response = await send_recv(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/core.py", line 644, in send_recv
+    response = await comm.read(deserializers=deserializers)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 199, in read
+    convert_stream_closed_error(self, e)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 121, in convert_stream_closed_error
+    raise CommClosedError("in %s: %s: %s" % (obj, exc.__class__.__name__, exc))
+distributed.comm.core.CommClosedError: in <closed TCP>: ConnectionResetError: [Errno 104] Connection reset by peer
+distributed.worker - WARNING -  Compute Failed
+Function:  getter
+args:      (ImplicitToExplicitIndexingAdapter(array=CopyOnWriteArray(array=LazilyOuterIndexedArray(array=_ElementwiseFunctionArray(LazilyOuterIndexedArray(array=<xarray.backends.netCDF4_.NetCDF4ArrayWrapper object at 0x7fd38024e480>, key=BasicIndexer((slice(None, None, None), slice(None, None, None), slice(None, None, None)))), func=functools.partial(<function _apply_mask at 0x7fd41d8454c0>, encoded_fill_values={255}, decoded_fill_value=nan, dtype=dtype('float32')), dtype=dtype('float32')), key=BasicIndexer((slice(None, None, None), slice(None, None, None), slice(None, None, None)))))), (slice(0, 1, None), slice(9000, 13500, None), slice(0, 9000, None)))
+kwargs:    {}
+Exception: RuntimeError('NetCDF: HDF error')
+
+Traceback (most recent call last):
+  File "snowCCI_preprocess_MODIS_gricad_v1-2010.py", line 336, in <module>
+    ds_interp.to_netcdf(path_out_MODIS+'/daily/'+year+'/'+year+month+'-ESACCI-L3C_SNOW-SCFG-MODIS_TERRA-fv2.0_interp.nc', encoding=encoding)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/core/dataset.py", line 1558, in to_netcdf
+    return to_netcdf(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/backends/api.py", line 1090, in to_netcdf
+    writes = writer.sync(compute=compute)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/backends/common.py", line 198, in sync
+    delayed_store = da.store(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/core.py", line 945, in store
+    result.compute(**kwargs)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/base.py", line 167, in compute
+    (result,) = compute(self, traverse=False, **kwargs)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/base.py", line 447, in compute
+    results = schedule(dsk, keys, **kwargs)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py", line 2688, in get
+    results = self.gather(packed, asynchronous=asynchronous, direct=direct)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py", line 1982, in gather
+    return self.sync(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py", line 832, in sync
+    return sync(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/utils.py", line 339, in sync
+    raise exc.with_traceback(tb)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/utils.py", line 323, in f
+    result[0] = yield future
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/tornado/gen.py", line 735, in run
+    value = future.result()
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/client.py", line 1847, in _gather
+    raise exception.with_traceback(traceback)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/array/core.py", line 100, in getter
+    c = np.asarray(c)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/numpy/core/_asarray.py", line 83, in asarray
+    return array(a, dtype, copy=False, order=order)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/core/indexing.py", line 491, in __array__
+    return np.asarray(self.array, dtype=dtype)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/numpy/core/_asarray.py", line 83, in asarray
+    return array(a, dtype, copy=False, order=order)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/core/indexing.py", line 653, in __array__
+    return np.asarray(self.array, dtype=dtype)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/numpy/core/_asarray.py", line 83, in asarray
+    return array(a, dtype, copy=False, order=order)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/core/indexing.py", line 557, in __array__
+    return np.asarray(array[self.key], dtype=None)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/numpy/core/_asarray.py", line 83, in asarray
+    return array(a, dtype, copy=False, order=order)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/coding/variables.py", line 72, in __array__
+    return self.func(self.array)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/coding/variables.py", line 138, in _apply_mask
+    data = np.asarray(data, dtype=dtype)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/numpy/core/_asarray.py", line 83, in asarray
+    return array(a, dtype, copy=False, order=order)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/core/indexing.py", line 557, in __array__
+    return np.asarray(array[self.key], dtype=None)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/backends/netCDF4_.py", line 72, in __getitem__
+    return indexing.explicit_indexing_adapter(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/core/indexing.py", line 837, in explicit_indexing_adapter
+    result = raw_indexing_method(raw_key.tuple)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/xarray/backends/netCDF4_.py", line 85, in _getitem
+    array = getitem(original_array, key)
+  File "netCDF4/_netCDF4.pyx", line 4452, in netCDF4._netCDF4.Variable.__getitem__
+  File "netCDF4/_netCDF4.pyx", line 5394, in netCDF4._netCDF4.Variable._get
+  File "netCDF4/_netCDF4.pyx", line 1928, in netCDF4._netCDF4._ensure_nc_success
+RuntimeError: NetCDF: HDF error

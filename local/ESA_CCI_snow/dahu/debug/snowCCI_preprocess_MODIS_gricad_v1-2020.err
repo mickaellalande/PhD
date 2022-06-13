@@ -1,0 +1,53 @@
+/home/lalandmi/.bashrc: line 136: work: command not found
+/home/lalandmi/.bashrc: line 136: work: command not found
+distributed.worker - ERROR - failed during get data with tcp://127.0.0.1:45237 -> tcp://127.0.0.1:32815
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 246, in write
+    await future
+tornado.iostream.StreamClosedError: Stream is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 1284, in get_data
+    compressed = await comm.write(msg, serializers=serializers)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 250, in write
+    convert_stream_closed_error(self, e)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 121, in convert_stream_closed_error
+    raise CommClosedError("in %s: %s: %s" % (obj, exc.__class__.__name__, exc))
+distributed.comm.core.CommClosedError: in <closed TCP>: TimeoutError: [Errno 110] Connection timed out
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/dask/utils.py:31: RuntimeWarning: All-NaN slice encountered
+  return func(*args, **kwargs)
+distributed.worker - ERROR - Worker stream died during communication: tcp://127.0.0.1:45237
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 193, in read
+    n = await stream.read_into(frame)
+tornado.iostream.StreamClosedError: Stream is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 1982, in gather_dep
+    response = await get_data_from_worker(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 3258, in get_data_from_worker
+    return await retry_operation(_get_data, operation="get_data_from_worker")
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/utils_comm.py", line 385, in retry_operation
+    return await retry(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/utils_comm.py", line 370, in retry
+    return await coro()
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/worker.py", line 3238, in _get_data
+    response = await send_recv(
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/core.py", line 644, in send_recv
+    response = await comm.read(deserializers=deserializers)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 199, in read
+    convert_stream_closed_error(self, e)
+  File "/bettik/lalandmi/miniconda3/envs/phd_v3/lib/python3.8/site-packages/distributed/comm/tcp.py", line 121, in convert_stream_closed_error
+    raise CommClosedError("in %s: %s: %s" % (obj, exc.__class__.__name__, exc))
+distributed.comm.core.CommClosedError: in <closed TCP>: ConnectionResetError: [Errno 104] Connection reset by peer
+## OAR [2022-06-09 21:14:01] Job 21482535 KILLED ##
