@@ -195,6 +195,37 @@ def get_obs(
 
             u.check_period_size(period, obs, ds, frequency='monthly')
             
+        # SnowCCI MODIS
+        if obs_name == 'snowCCI_MODIS':
+            if version not in ['v2.0']:
+                raise ValueError(
+                    f"Invalid version argument: '{version}'. "
+                     "Valid version are: 'v2.0'."
+                )
+
+            # Select machine
+            if machine in ['CICLAD']:
+                path = '/data/mlalande/ESA_CCI_SNOW/preprocess/scfg/MODIS/' \
+                    +version+'/monthly_0.5deg/*.nc' 
+            else:
+                raise ValueError(
+                    f"Invalid machine argument: '{machine}'. "
+                     "Valid names are: 'CICLAD'."
+                )
+
+            # Get raw data
+            print('Get observation: ' + obs_name + '\n' + path + '\n')
+            
+            # Select only values with valid lat and lon for regrid
+            # (missing lat/lon values are set to ~9.9e+36)
+            ds = xr.open_mfdataset(path).sel(time=period)
+            u.check_first_last_year(period, ds)
+
+            obs = ds['scfg_interp_0.5deg_icefilled']
+            obs.attrs['obs_name'] = obs_name + '_' + version
+
+            u.check_period_size(period, obs, ds, frequency='monthly')
+            
 
         # MEaSUREs Northern Hemisphere Terrestrial Snow Cover Extent Daily 25km
         # EASE-Grid 2.0, Version 1 (https://nsidc.org/data/nsidc-0530)
