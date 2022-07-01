@@ -17,6 +17,8 @@ from cartopy.util import add_cyclic_point
 from clim import *  # makes weighted montlhy computations
 from zones import *  # make zones
 from plots import *  # make zones
+from LMDZ_tools import *  # make zones
+from taylor_diagram import *
 
 
 # =============================================================================
