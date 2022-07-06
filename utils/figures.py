@@ -132,7 +132,7 @@ def plot_ref_new_obs(
     # Differences between the new and reference simulation
     m2 = axs[i_diff].pcolormesh(new - ref, cmap=cmap_diff, levels=levels_diff,
                            extend=extend_diff)
-    axs[i_diff].format(title=ref.title + '\n - ' + new.title)
+    axs[i_diff].format(title=new.title + '\n - ' + ref.title)
     axs[i_diff].colorbar(m2, 
                          label='Difference of\n' + label + ' [' + units + ']',
                          loc=cbar_loc)
