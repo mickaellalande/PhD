@@ -105,7 +105,7 @@ def plot_zones(ax):
         get_zones()
 
     # HKK
-    ax.text(lonlim_HK.start + 0.5, latlim_HK.stop - 2, 'HK', zorder=10)
+    ax.text(lonlim_HK.start + 0.5, latlim_HK.stop - 2.5, 'HK', zorder=10)
     ax.add_patch(
         mpatches.Rectangle(
             xy=[lonlim_HK.start, latlim_HK.start],
@@ -118,7 +118,7 @@ def plot_zones(ax):
     )
 
     # HM
-    ax.text(lonlim_HM.start + 0.5, latlim_HM.stop - 2, 'HM', zorder=10)
+    ax.text(lonlim_HM.start + 0.5, latlim_HM.stop - 2.5, 'HM', zorder=10)
     ax.add_patch(
         mpatches.Rectangle(
             xy=[lonlim_HM.start, latlim_HM.start],
@@ -131,7 +131,7 @@ def plot_zones(ax):
     )
 
     # TP
-    ax.text(lonlim_TP.start + 0.5, latlim_TP.stop - 2, 'TP', zorder=10)
+    ax.text(lonlim_TP.start + 0.5, latlim_TP.stop - 2.5, 'TP', zorder=10)
     ax.add_patch(
         mpatches.Rectangle(
             xy=[lonlim_TP.start, latlim_TP.start],
@@ -145,7 +145,7 @@ def plot_zones(ax):
     
     
     # TS
-    ax.text(lonlim_TS.start + 0.5, latlim_TS.stop - 2, 'TS', zorder=10)
+    ax.text(lonlim_TS.start + 0.5, latlim_TS.stop - 2.5, 'TS', zorder=10)
     ax.add_patch(
         mpatches.Rectangle(
             xy=[lonlim_TS.start, latlim_TS.start],
